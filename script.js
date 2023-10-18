@@ -2,10 +2,6 @@
 var d = 1;
 var x = 0;
 
-function myFunction() {
-  
-}
-
 document.addEventListener("keydown", function (event) {
     // Check if the key pressed was "f"
     if (event.key === "f") { 
