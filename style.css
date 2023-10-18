@@ -69,7 +69,13 @@ button {
   font-size: 16px;
   z-index: 2; /* Ensure it appears on top of the images */
   border-radius: 5px;
+  transition: opacity 0.5s ease;
 }
+
+.vote-overlay.hide {
+  opacity: 0;
+}
+
 
 #or-circle {
   position: absolute;

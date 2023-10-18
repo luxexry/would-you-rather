@@ -1,9 +1,19 @@
 // Attach an event listener to the document
 var d = 1;
+var x = 0;
+
+function myFunction() {
+  
+}
 
 document.addEventListener("keydown", function (event) {
     // Check if the key pressed was "f"
-    if (event.key === "f") {  
+    if (event.key === "f") { 
+      let elements = document.querySelectorAll('.vote-overlay');
+      // Loop over each element
+      for (let i = 0; i < elements.length; i++) {
+        elements[i].classList.toggle('hide');
+      }
       // Get the element with id "text2"
       var element = document.getElementById("text2");
   
