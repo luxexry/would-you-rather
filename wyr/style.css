@@ -50,14 +50,6 @@ button {
   text-align: center;
 }
 
-#option1 {
-  background-color: rgb(234,53,64);
-}
-
-#option2 {
-  background-color: rgb(84,130,246);
-}
-
 /* Add CSS for the votes percentage */
 .vote-overlay {
   position: absolute;
@@ -76,6 +68,13 @@ button {
   opacity: 0;
 }
 
+#option1 {
+  background-color: rgb(234,53,64);
+}
+
+#option2 {
+  background-color: rgb(84,130,246);
+}
 
 #or-circle {
   position: absolute;
