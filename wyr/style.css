@@ -125,3 +125,21 @@ button img {
 .animate {
   animation: popBounce 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
 }
+
+@keyframes rotate45andback {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-45deg);
+  }
+
+  75% {
+    transform: rotate(45deg);
+  }
+
+}
+
+.rotatetheOR {
+  animation: rotate45andback 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+}

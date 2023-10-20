@@ -21,11 +21,13 @@ document.addEventListener("keydown", function (event) {
           element.innerHTML = d;
           d = 2;
           applyAnimation('image1', 'animate');
+          applyAnimation('or-text', 'rotatetheOR');
         } else if(d === 2)
         {
           element.innerHTML = d;
           d = 1;
           removeAnimation('image1', 'animate');
+          removeAnimation('or-text', 'rotatetheOR');
         }
         
       } else {
