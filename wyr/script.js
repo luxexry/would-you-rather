@@ -20,16 +20,13 @@ document.addEventListener("keydown", function (event) {
         {
           element.innerHTML = d;
           d = 2;
-          applyAnimation();
+          applyAnimation('image1', 'animate');
         } else if(d === 2)
         {
           element.innerHTML = d;
           d = 1;
-          removeAnimation();
+          removeAnimation('image1', 'animate');
         }
-
-        // Call applyAnimation after updating the innerHTML
-        
         
       } else {
         console.log('Element with id "option2" does not exist');
@@ -37,20 +34,21 @@ document.addEventListener("keydown", function (event) {
     }
 });
 
-function applyAnimation() {
-  var element = document.getElementById('image1');
+function applyAnimation(image, animation) {
+  var element = document.getElementById(image);
   if (element) {
-    element.classList.add('animate');
+    element.classList.add(animation);
   } else {
     console.log('Element with id "image1" does not exist');
   }
 }
 
-function removeAnimation() {
-  var element = document.getElementById('image1');
+function removeAnimation(image, animation) {
+  var element = document.getElementById(image);
   if (element) {
-    element.classList.remove('animate');
+    element.classList.remove(animation);
   } else {
     console.log('Element with id "image1" does not exist');
   }
 }
+
