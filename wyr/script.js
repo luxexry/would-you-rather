@@ -26,6 +26,8 @@ document.addEventListener("keydown", function (event) {
           or_text.style.fontSize = "x-large";
           or_text.innerHTML = "⌛"
           applyAnimation('or-text', 'rotatetheOR');
+
+          playAudio();
         } else if(d === 2)
         {
           element.innerHTML = d;
@@ -35,6 +37,8 @@ document.addEventListener("keydown", function (event) {
           or_text.innerHTML = "OR"
           removeAnimation('line', 'colorLine')
           removeAnimation('or-text', 'rotatetheOR');
+
+          stopAudio();
         }
         
       } else {
@@ -61,3 +65,49 @@ function removeAnimation(image, animation) {
   }
 }
 
+function playAudio() {
+  var audioElement = document.getElementById("audioElement");
+  if (audioElement) {
+      audioElement.play();
+  } else {
+      console.log('Audio element not found');
+  }
+}
+
+function stopAudio() {
+  var audioElement = document.getElementById("audioElement");
+  if (audioElement) {
+      audioElement.pause();
+      audioElement.currentTime = 0; // Reset the audio to the beginning
+  } else {
+      console.log('Audio element not found');
+  }
+}
+
+// Function to fetch and populate the HTML elements with JSON data
+function populateHTMLWithJSON() {
+  fetch('statements.json')
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (jsonData) {
+      jsonData.forEach(function (item) {
+        var imageElement = document.getElementById("image" + item.id);
+        var textElement = document.getElementById("text" + item.id);
+
+        if (imageElement) {
+          imageElement.src = item.imagePath;
+        }
+
+        if (textElement) {
+          textElement.textContent = item.statement;
+        }
+      });
+    })
+    .catch(function (error) {
+      console.error('Error fetching data:', error);
+    });
+}
+
+// Call the function to populate the HTML with JSON data
+populateHTMLWithJSON();
