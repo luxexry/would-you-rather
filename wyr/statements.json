@@ -2,12 +2,16 @@
     {
       "id": 1,
       "imagePath": "Images/1.jpg",
-      "statement": "Would you ratherrrxx option 1?"
+      "statement": "Would you rather option 1?"
     },
     {
       "id": 2,
       "imagePath": "Images/2.jpg",
       "statement": "Or option 2?"
+    }
+    {
+        "id": 3,
+        "statement": "Or option 3?"
     }
   ]
   
