@@ -21,7 +21,8 @@ document.addEventListener("keydown", function (event) {
         {
           element.innerHTML = d;
           d = 2;
-          applyAnimation('image1', 'animate');
+          //applyAnimation('image1', 'animate');
+          applyAnimation('image1', 'zigzag');
           applyAnimation('line', 'colorLine')
           or_text.style.fontSize = "x-large";
           or_text.innerHTML = "⌛"
@@ -32,7 +33,8 @@ document.addEventListener("keydown", function (event) {
         {
           element.innerHTML = d;
           d = 1;
-          removeAnimation('image1', 'animate');
+          //removeAnimation('image1', 'animate');
+          removeAnimation('image1', 'zigzag');
           or_text.style.fontSize = "medium";
           or_text.innerHTML = "OR"
           removeAnimation('line', 'colorLine')
@@ -47,8 +49,8 @@ document.addEventListener("keydown", function (event) {
     }
 });
 
-function applyAnimation(image, animation) {
-  var element = document.getElementById(image);
+function applyAnimation(itemID, animation) {
+  var element = document.getElementById(itemID);
   if (element) {
     element.classList.add(animation);
   } else {
@@ -56,8 +58,8 @@ function applyAnimation(image, animation) {
   }
 }
 
-function removeAnimation(image, animation) {
-  var element = document.getElementById(image);
+function removeAnimation(itemID, animation) {
+  var element = document.getElementById(itemID);
   if (element) {
     element.classList.remove(animation);
   } else {
