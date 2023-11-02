@@ -1,52 +1,57 @@
 // Attach an event listener to the document
+// Attach an event listener to the document
 var d = 1;
 var x = 0;
+var audioElement = document.getElementById("audioElement"); // Define the audio element
 
 document.addEventListener("keydown", function (event) {
-    // Check if the key pressed was "f"
-    if (event.key === "f") { 
-      let elements = document.querySelectorAll('.vote-overlay');
-      // Loop over each element
-      for (let i = 0; i < elements.length; i++) {
-        elements[i].classList.toggle('hide');
-      }
-      // Get the element with id "text2"
-      var element = document.getElementById("text2");
-      var or_text = document.getElementById("or-text")
-  
-      // Check if the element exists
-      if (element) {
-        // Change the id of the element to the random number
-        if(d === 1)
-        {
-          element.innerHTML = d;
-          d = 2;
-          applyAnimation('image1', 'animate');
-          
-          applyAnimation('line', 'colorLine')
-          or_text.style.fontSize = "x-large";
-          or_text.innerHTML = "⌛"
-          applyAnimation('or-text', 'rotatetheOR');
-
-          PlayAudio("Mannn I needa FUCK");
-        } else if(d === 2)
-        {
-          element.innerHTML = d;
-          d = 1;
-          removeAnimation('image1', 'animate');
-          
-          or_text.style.fontSize = "medium";
-          or_text.innerHTML = "OR"
-          removeAnimation('line', 'colorLine')
-          removeAnimation('or-text', 'rotatetheOR');
-
-          StopAudio();
-        }
-        
-      } else {
-        console.log('Element with id "option2" does not exist');
-      }
+  // Check if the key pressed was "f"
+  if (event.key === "f") {
+    let elements = document.querySelectorAll('.vote-overlay');
+    // Loop over each element
+    for (let i = 0; i < elements.length; i++) {
+      elements[i].classList.toggle('hide');
     }
+    // Get the element with id "text2"
+    var element = document.getElementById("text2");
+    var or_text = document.getElementById("or-text");
+
+    // Check if the element exists
+    if (element) {
+      // Change the id of the element to the random number
+      if (d === 1) {
+        element.innerHTML = d;
+        d = 2;
+        applyAnimation('image1', 'animate');
+
+        applyAnimation('line', 'colorLine');
+        or_text.style.fontSize = "x-large";
+        or_text.innerHTML = "⌛";
+        applyAnimation('or-text', 'rotatetheOR');
+
+        PlayAudio("Would you rather have a dog or a cat?");
+
+        // Add an "ended" event listener to the text-to-speech audio
+        audioElement.addEventListener("ended", function () {
+          // When the text-to-speech audio has finished playing, play the clock audio
+          PlayUtilityAudio("clock.mp3");
+        });
+      } else if (d === 2) {
+        element.innerHTML = d;
+        d = 1;
+        removeAnimation('image1', 'animate');
+
+        or_text.style.fontSize = "medium";
+        or_text.innerHTML = "OR";
+        removeAnimation('line', 'colorLine');
+        removeAnimation('or-text', 'rotatetheOR');
+
+        StopAudio();
+      }
+    } else {
+      console.log('Element with id "option2" does not exist');
+    }
+  }
 });
 
 function applyAnimation(itemID, animation) {
@@ -92,6 +97,26 @@ function PlayAudio(text) {
     .catch((error) => {
       console.error('Error playing audio:', error);
     });
+}
+
+function PlayUtilityAudio(path) {
+  var audioElement = document.getElementById("audioElement");
+  if (audioElement) {
+    audioElement.src = "Audios/" + path;
+    audioElement.play();
+  } else {
+    console.log('Audio element not found');
+  }
+}
+
+
+function PauseAudio() {
+  var audioElement = document.getElementById("audioElement");
+  if (audioElement) {
+    audioElement.pause();
+  } else {
+    console.log('Audio element not found');
+  }
 }
 
 function StopAudio() {
