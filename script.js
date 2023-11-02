@@ -1,17 +1,7 @@
 // Attach an event listener to the document
 var d = 1;
 var x = 0;
-var audioElement = document.getElementById("audioElement");
-
-var audioQueue = ["Would you rather have a dog orrrrrrrrrr a cat?"]; // Define the audio queue
-
-// Function to play the next audio in the queue
-function playNextAudio() {
-  if (audioQueue.length > 0) {
-    var nextAudio = audioQueue.shift(); // Get and remove the first audio from the queue
-    PlayAudio(nextAudio);
-  }
-}
+var audioElement = document.getElementById("audioElement"); // Define the audio element
 
 document.addEventListener("keydown", function (event) {
   // Check if the key pressed was "f"
@@ -38,8 +28,13 @@ document.addEventListener("keydown", function (event) {
         or_text.innerHTML = "⌛";
         applyAnimation('or-text', 'rotatetheOR');
 
-        // Call the function to start playing the audio queue
-        playNextAudio();
+        PlayAudio("Would you rather be able to fly or be invisible (so you can see all the hot ladies in the locker room)");
+
+        // Add an "ended" event listener to the text-to-speech audio
+        audioElement.addEventListener("ended", function () {
+          // When the text-to-speech audio has finished playing, play the clock audio
+          PlayUtilityAudio("clock.mp3");
+        });
       } else if (d === 2) {
         element.innerHTML = d;
         d = 1;
