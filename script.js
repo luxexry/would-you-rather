@@ -1,8 +1,17 @@
 // Attach an event listener to the document
-// Attach an event listener to the document
 var d = 1;
 var x = 0;
-var audioElement = document.getElementById("audioElement"); // Define the audio element
+var audioElement = document.getElementById("audioElement");
+
+var audioQueue = ["Would you rather have a dog orrrrrrrrrr a cat?"]; // Define the audio queue
+
+// Function to play the next audio in the queue
+function playNextAudio() {
+  if (audioQueue.length > 0) {
+    var nextAudio = audioQueue.shift(); // Get and remove the first audio from the queue
+    PlayAudio(nextAudio);
+  }
+}
 
 document.addEventListener("keydown", function (event) {
   // Check if the key pressed was "f"
@@ -29,13 +38,8 @@ document.addEventListener("keydown", function (event) {
         or_text.innerHTML = "⌛";
         applyAnimation('or-text', 'rotatetheOR');
 
-        PlayAudio("Would you rather have a dog or a cat?");
-
-        // Add an "ended" event listener to the text-to-speech audio
-        audioElement.addEventListener("ended", function () {
-          // When the text-to-speech audio has finished playing, play the clock audio
-          PlayUtilityAudio("clock.mp3");
-        });
+        // Call the function to start playing the audio queue
+        playNextAudio();
       } else if (d === 2) {
         element.innerHTML = d;
         d = 1;
@@ -86,7 +90,6 @@ function PlayAudio(text) {
       // Create a Blob URL from the audio data
       const audioURL = URL.createObjectURL(blob);
 
-      var audioElement = document.getElementById("audioElement");
       if (audioElement) {
         audioElement.src = audioURL;
         audioElement.play();
@@ -100,7 +103,6 @@ function PlayAudio(text) {
 }
 
 function PlayUtilityAudio(path) {
-  var audioElement = document.getElementById("audioElement");
   if (audioElement) {
     audioElement.src = "Audios/" + path;
     audioElement.play();
@@ -109,9 +111,7 @@ function PlayUtilityAudio(path) {
   }
 }
 
-
 function PauseAudio() {
-  var audioElement = document.getElementById("audioElement");
   if (audioElement) {
     audioElement.pause();
   } else {
@@ -120,7 +120,6 @@ function PauseAudio() {
 }
 
 function StopAudio() {
-  var audioElement = document.getElementById("audioElement");
   if (audioElement) {
     audioElement.pause();
     audioElement.currentTime = 0; // Reset the audio to the beginning
@@ -172,8 +171,6 @@ function updateVoteOverlay() {
       console.error('Error fetching vote data:', error);
     });
 }
-
-
 
 // Call the function to populate the HTML with JSON data
 populateHTMLWithJSON();
