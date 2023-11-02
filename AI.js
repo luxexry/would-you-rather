@@ -1,5 +1,4 @@
 import * as voice from "elevenlabs-node";
-import * as fs from "fs-extra";
 
 const apiKey = "091352c1b6af8f78ef5671bd173cae93";
 const voiceID = "pNInz6obpgDQGcFmaJgB";

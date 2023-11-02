@@ -1,5 +1,5 @@
 // Attach an event listener to the document
-import { textToSpeech } from './AI.js';
+//import { textToSpeech } from './AI.js';
 
 var d = 1;
 var x = 0;
@@ -23,8 +23,8 @@ document.addEventListener("keydown", function (event) {
         {
           element.innerHTML = d;
           d = 2;
-          //applyAnimation('image1', 'animate');
-          applyAnimation('image1', 'zigzag');
+          applyAnimation('image1', 'animate');
+          
           applyAnimation('line', 'colorLine')
           or_text.style.fontSize = "x-large";
           or_text.innerHTML = "⌛"
@@ -35,8 +35,8 @@ document.addEventListener("keydown", function (event) {
         {
           element.innerHTML = d;
           d = 1;
-          //removeAnimation('image1', 'animate');
-          removeAnimation('image1', 'zigzag');
+          removeAnimation('image1', 'animate');
+          
           or_text.style.fontSize = "medium";
           or_text.innerHTML = "OR"
           removeAnimation('line', 'colorLine')
