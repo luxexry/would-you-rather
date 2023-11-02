@@ -1,4 +1,6 @@
 // Attach an event listener to the document
+import { textToSpeech } from './AI.js';
+
 var d = 1;
 var x = 0;
 
@@ -28,7 +30,7 @@ document.addEventListener("keydown", function (event) {
           or_text.innerHTML = "⌛"
           applyAnimation('or-text', 'rotatetheOR');
 
-          playAudio();
+          PlayAudio("AI.mp3");
         } else if(d === 2)
         {
           element.innerHTML = d;
@@ -40,7 +42,7 @@ document.addEventListener("keydown", function (event) {
           removeAnimation('line', 'colorLine')
           removeAnimation('or-text', 'rotatetheOR');
 
-          stopAudio();
+          StopAudio();
         }
         
       } else {
@@ -67,22 +69,23 @@ function removeAnimation(itemID, animation) {
   }
 }
 
-function playAudio() {
+function PlayAudio(fileName) {
   var audioElement = document.getElementById("audioElement");
   if (audioElement) {
-      audioElement.play();
+    audioElement.src = fileName ? fileName : "Audios/clock.mp3"; // Set the audio source to the provided file
+    audioElement.play();
   } else {
-      console.log('Audio element not found');
+    console.log('Audio element not found');
   }
 }
 
-function stopAudio() {
+function StopAudio() {
   var audioElement = document.getElementById("audioElement");
   if (audioElement) {
-      audioElement.pause();
-      audioElement.currentTime = 0; // Reset the audio to the beginning
+    audioElement.pause();
+    audioElement.currentTime = 0; // Reset the audio to the beginning
   } else {
-      console.log('Audio element not found');
+    console.log('Audio element not found');
   }
 }
 
