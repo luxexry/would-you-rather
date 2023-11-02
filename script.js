@@ -114,5 +114,27 @@ function populateHTMLWithJSON() {
     });
 }
 
+function updateVoteOverlay() {
+  fetch('statements.json') // Fetch the statements JSON file
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (statementsData) {
+      statementsData.forEach(function (item) {
+        var voteOverlayElement = document.querySelector('#option' + item.id + ' .vote-overlay');
+
+        if (voteOverlayElement && item.votes) {
+          voteOverlayElement.textContent = 'Votes: ' + item.votes + '%';
+        }
+      });
+    })
+    .catch(function (error) {
+      console.error('Error fetching vote data:', error);
+    });
+}
+
+
+
 // Call the function to populate the HTML with JSON data
 populateHTMLWithJSON();
+updateVoteOverlay();
