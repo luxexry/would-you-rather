@@ -1,6 +1,4 @@
 // Attach an event listener to the document
-//import { textToSpeech } from './AI.js';
-
 var d = 1;
 var x = 0;
 
@@ -30,7 +28,7 @@ document.addEventListener("keydown", function (event) {
           or_text.innerHTML = "⌛"
           applyAnimation('or-text', 'rotatetheOR');
 
-          PlayAudio("AI.mp3");
+          PlayAudio("Mannn I needa FUCK");
         } else if(d === 2)
         {
           element.innerHTML = d;
@@ -69,14 +67,31 @@ function removeAnimation(itemID, animation) {
   }
 }
 
-function PlayAudio(fileName) {
-  var audioElement = document.getElementById("audioElement");
-  if (audioElement) {
-    audioElement.src = fileName ? fileName : "Audios/clock.mp3"; // Set the audio source to the provided file
-    audioElement.play();
-  } else {
-    console.log('Audio element not found');
-  }
+function PlayAudio(text) {
+  // Make a POST request to the server running on port 3000 to convert the text to speech
+  fetch('http://localhost:3000/text-to-speech', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ text }),
+  })
+    .then((response) => response.blob())
+    .then((blob) => {
+      // Create a Blob URL from the audio data
+      const audioURL = URL.createObjectURL(blob);
+
+      var audioElement = document.getElementById("audioElement");
+      if (audioElement) {
+        audioElement.src = audioURL;
+        audioElement.play();
+      } else {
+        console.log('Audio element not found');
+      }
+    })
+    .catch((error) => {
+      console.error('Error playing audio:', error);
+    });
 }
 
 function StopAudio() {
