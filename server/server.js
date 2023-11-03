@@ -1,12 +1,14 @@
 const express = require('express');
 const voice = require('elevenlabs-node');
-const cors = require('cors'); // Import the 'cors' package
+const cors = require('cors');
+
 const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
-
 app.use(cors());
+
+console.log("LOLz");
 
 app.post('/text-to-speech', async (req, res) => {
   try {
@@ -16,6 +18,8 @@ app.post('/text-to-speech', async (req, res) => {
     const text = req.body.text; // Get the text from the client
 
     await voice.textToSpeech(apiKey, voiceID, fileName, text);
+
+    console.log(audioURL);
 
     // Respond with the generated audio file or data
     res.sendFile(fileName, { root: __dirname }); // Adjust the root path as needed

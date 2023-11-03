@@ -28,7 +28,7 @@ document.addEventListener("keydown", function (event) {
         or_text.innerHTML = "⌛";
         applyAnimation('or-text', 'rotatetheOR');
 
-        PlayAudio("Would you rather be able to fly or be invisible (so you can see all the hot ladies in the locker room)");
+        PlayAudio("Would you rather be able to go crazy or be insanse");
 
         // Add an "ended" event listener to the text-to-speech audio
         audioElement.addEventListener("ended", function () {
@@ -86,6 +86,7 @@ function PlayAudio(text) {
       const audioURL = URL.createObjectURL(blob);
 
       if (audioElement) {
+        // I want you to print the audioURL to a file called Log.txt
         audioElement.src = audioURL;
         audioElement.play();
       } else {
