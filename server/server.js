@@ -19,10 +19,10 @@ app.post('/text-to-speech', async (req, res) => {
 
     await voice.textToSpeech(apiKey, voiceID, fileName, text);
 
-    console.log(audioURL);
+    console.log("x");
 
     // Respond with the generated audio file or data
-    res.sendFile(fileName, { root: __dirname }); // Adjust the root path as needed
+    res.sendFile("../AI.mp3"); // Adjust the root path as needed
   } catch (error) {
     console.error('Error converting text to speech:', error);
     res.status(500).send('Error converting text to speech');
