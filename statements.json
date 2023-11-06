@@ -1,25 +1,23 @@
 [
     {
       "id": 1,
-      "imagePath": "Images/1.jpg",
+      "imagePath1": "Images/1.jpg",
+      "imagePath2": "Images/2.jpg",
       "statement": "Would you rather die now or live forever?",
-      "votes": 60
+      "votes1": 60,
+      "votes2": 40
     },
     {
-      "id": 2,
-      "imagePath": "Images/2.jpg",
+      "id": 1,
+      "imagePath1": "Images/1.jpg",
+      "imagePath2": "Images/2.jpg",
       "statement": "Would you rather live in a castle or live in the clouds?",
-      "votes": 40
+      "votes1": 56,
+      "votes2": 54
     },
     {
       "id": 3,
       "statement": "Or option 3?"
-    },
-    {
-      "id": 4,
-      "imagePath": "Images/4.jpg",
-      "statement": "Would you rather live in a cave or live in the desert?",
-      "votes": 30
     }
   ]
   

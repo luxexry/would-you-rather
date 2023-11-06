@@ -39,7 +39,7 @@ document.addEventListener("keydown", function (event) {
         or_text.innerHTML = "⌛";
         applyAnimation('or-text', 'rotatetheOR');
 
-        PlayAudio("Would you rather be able to go crazy or be insanse");
+        playNextAudio();
 
         // Add an "ended" event listener to the text-to-speech audio
         audioElement.addEventListener("ended", function () {
@@ -170,10 +170,12 @@ function updateVoteOverlay() {
     })
     .then(function (statementsData) {
       statementsData.forEach(function (item) {
-        var voteOverlayElement = document.querySelector('#option' + item.id + ' .vote-overlay');
+        var voteOverlayElement1 = document.querySelector('#option' + item.id + ' .vote-overlay');
+        var voteOverlayElement2 = document.querySelector('#option' + item.id + ' .vote-overlay');
 
-        if (voteOverlayElement && item.votes) {
-          voteOverlayElement.textContent = 'Votes: ' + item.votes + '%';
+        if (voteOverlayElement1 && voteOverlayElement2) {
+          voteOverlayElement1.textContent = 'Votes Option 1: ' + item.votes1 + '%';
+          voteOverlayElement2.textContent = 'Votes Option 2: ' + item.votes2 + '%';
         }
       });
     })
