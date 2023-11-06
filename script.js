@@ -1,15 +1,16 @@
 // Attach an event listener to the document
 var d = 1;
 var x = 0;
+var i = 0;
 var audioElement = document.getElementById("audioElement");
 
-var audioQueue = ["Would you rather have a dog orrrrrrrrrr a cat?"]; // Define the audio queue
+var statements = []; // Store the statements from the JSON file
 
 // Function to play the next audio in the queue
 function playNextAudio() {
-  if (audioQueue.length > 0) {
-    var nextAudio = audioQueue.shift(); // Get and remove the first audio from the queue
-    PlayAudio(nextAudio);
+  if (statements.length > 0) {
+    var nextStatement = statements.shift(); // Get and remove the first statement from the array
+    PlayAudio(nextStatement.statement);
   }
 }
 
@@ -92,6 +93,7 @@ function PlayAudio(text) {
 
       if (audioElement) {
         audioElement.src = audioURL;
+        console.log(audioURL)
         audioElement.play();
       } else {
         console.log('Audio element not found');
@@ -135,6 +137,7 @@ function populateHTMLWithJSON() {
       return response.json();
     })
     .then(function (jsonData) {
+      statements = jsonData; // Store the statements in the global variable
       jsonData.forEach(function (item) {
         var imageElement = document.getElementById("image" + item.id);
         var textElement = document.getElementById("text" + item.id);
@@ -152,6 +155,7 @@ function populateHTMLWithJSON() {
       console.error('Error fetching data:', error);
     });
 }
+
 
 function updateVoteOverlay() {
   fetch('statements.json') // Fetch the statements JSON file

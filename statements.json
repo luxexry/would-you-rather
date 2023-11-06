@@ -2,18 +2,24 @@
     {
       "id": 1,
       "imagePath": "Images/1.jpg",
-      "statement": "Would you rather option 1?",
+      "statement": "Would you rather die now or live forever?",
       "votes": 60
     },
     {
       "id": 2,
       "imagePath": "Images/2.jpg",
-      "statement": "Or option 2?",
+      "statement": "Would you rather live in a castle or live in the clouds?",
       "votes": 40
     },
     {
-        "id": 3,
-        "statement": "Or option 3?"
+      "id": 3,
+      "statement": "Or option 3?"
+    },
+    {
+      "id": 4,
+      "imagePath": "Images/4.jpg",
+      "statement": "Would you rather live in a cave or live in the desert?",
+      "votes": 30
     }
   ]
   
