@@ -39,8 +39,13 @@ document.addEventListener("keydown", function (event) {
         or_text.innerHTML = "⌛";
         applyAnimation('or-text', 'rotatetheOR');
 
-        // Call the function to start playing the audio queue
-        playNextAudio();
+        PlayAudio("Would you rather be able to go crazy or be insanse");
+
+        // Add an "ended" event listener to the text-to-speech audio
+        audioElement.addEventListener("ended", function () {
+          // When the text-to-speech audio has finished playing, play the clock audio
+          PlayUtilityAudio("clock.mp3");
+        });
       } else if (d === 2) {
         element.innerHTML = d;
         d = 1;
@@ -92,6 +97,7 @@ function PlayAudio(text) {
       const audioURL = URL.createObjectURL(blob);
 
       if (audioElement) {
+        // I want you to print the audioURL to a file called Log.txt
         audioElement.src = audioURL;
         console.log(audioURL)
         audioElement.play();

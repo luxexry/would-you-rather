@@ -1,13 +1,15 @@
 const express = require('express');
 const path = require('path');
 const voice = require('elevenlabs-node');
-const cors = require('cors'); // Import the 'cors' package
+const cors = require('cors');
+
 const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
-
 app.use(cors());
+
+console.log("LOLz");
 
 app.post('/text-to-speech', async (req, res) => {
   try {
@@ -20,12 +22,8 @@ app.post('/text-to-speech', async (req, res) => {
 
     await voice.textToSpeech(apiKey, voiceID, absoluteFilePath, text);
 
-    console.log("File created: " + fileName);
-    console.log("Directory: " + absoluteFilePath);
-
-    // Send the file from the 'Wouldyourather' directory
-    res.sendFile(absoluteFilePath);
-
+    // Respond with the generated audio file or data
+    res.sendFile(fileName, { root: __dirname }); // Adjust the root path as needed
   } catch (error) {
     console.error('Error converting text to speech:', error);
     res.status(500).send('Error converting text to speech');
