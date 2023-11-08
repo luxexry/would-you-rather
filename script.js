@@ -6,6 +6,8 @@ var audioElement = document.getElementById("audioElement");
 
 var statements = []; // Store the statements from the JSON file
 
+console.log(statements);
+
 // Function to play the next audio in the queue
 function playNextAudio() {
   if (statements.length > 0) {
@@ -35,7 +37,7 @@ document.addEventListener("keydown", function (event) {
       if (d === 1) {
         element.innerHTML = d;
         d = 2;
-        applyAnimation('image2', 'animate');
+        applyAnimation('image1', 'animate');
 
         applyAnimation('line', 'colorLine');
         or_text.style.fontSize = "x-large";
@@ -52,7 +54,7 @@ document.addEventListener("keydown", function (event) {
       } else if (d === 2) {
         element.innerHTML = d;
         d = 1;
-        removeAnimation('image2', 'animate');
+        removeAnimation('image1', 'animate');
 
         or_text.style.fontSize = "medium";
         or_text.innerHTML = "OR";
@@ -143,42 +145,49 @@ function StopAudio() {
 }
 
 // Function to fetch and populate the HTML elements with JSON data
-function populateHTMLWithJSON() {
+function populateHTMLWithJSON(id) {
   fetch('statements.json')
     .then(function (response) {
       return response.json();
     })
     .then(function (jsonData) {
-      jsonData.forEach(function (item) {
-        var imageElement = document.getElementById("image" + item.id);
+      const item = jsonData.find(item => item.id === id);
+      statements = jsonData; // Store the statements in the global variable
+      if (item) {
+        var imageElement1 = document.getElementById("image1");
+        var imageElement2 = document.getElementById("image2");
         var textElement = document.getElementById("text" + item.id);
 
-        if (imageElement) {
-          if (item.id === 1) {
-            imageElement.src = item.imagePath1;
-          } else if (item.id === 2) {
-            console.log("Reached 2");
-            imageElement.src = item.imagePath2; // Update image path for Option 2
-          }
+        if (imageElement1) {
+          console.log("FOUND IMAGE 1");
+          imageElement1.src = item.imagePath1;
+        }
+
+        if (imageElement2) {
+          console.log("FOUND IMAGE 2");
+          imageElement2.src = item.imagePath2;
         }
 
         if (textElement) {
           textElement.textContent = item.statement;
         }
-      });
-    })
+      } else {
+        console.error('Item with ID ' + id + ' not found in JSON.');
+      }
+    }) 
     .catch(function (error) {
       console.error('Error fetching data:', error);
     });
 }
 
-function updateVoteOverlay() {
+function updateVoteOverlay(id) {
   fetch('statements.json')
     .then(function (response) {
       return response.json();
     })
     .then(function (statementsData) {
-      statementsData.forEach(function (item) {
+      const item = statementsData.find(item => item.id === id);
+      if (item) {
         var voteOverlayElement1 = document.querySelector('#option' + item.id + ' .vote-overlay');
         var voteOverlayElement2 = document.querySelector('#option' + item.id + ' .vote-overlay');
 
@@ -186,14 +195,14 @@ function updateVoteOverlay() {
           voteOverlayElement1.textContent = 'Votes Option 1: ' + item.votes1 + '%';
           voteOverlayElement2.textContent = 'Votes Option 2: ' + item.votes2 + '%';
         }
-      });
+      } else {
+        console.error('Item with ID ' + id + ' not found in JSON.');
+      }
     })
     .catch(function (error) {
       console.error('Error fetching vote data:', error);
     });
 }
-
-
 // Call the function to populate the HTML with JSON data
-populateHTMLWithJSON();
-updateVoteOverlay();
+populateHTMLWithJSON(1);
+updateVoteOverlay(1);
