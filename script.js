@@ -221,3 +221,13 @@ function updateVoteOverlay(id) {
 var id = 2;
 populateHTMLWithJSON(id);
 updateVoteOverlay(id);
+
+// wait function
+function wait(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+wait(10000).then(() => {
+  populateHTMLWithJSON(1);
+  updateVoteOverlay(1);
+})
