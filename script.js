@@ -87,7 +87,7 @@ function removeAnimation(itemID, animation) {
 
 function PlayAudio(text) {
   return new Promise(function (resolve, reject) {
-    fetch('http://localhost:3000/text-to-speech', {
+    fetch('https://3000-luxexry-wouldyourather-bl4k4bu9chz.ws-us106.gitpod.io/text-to-speech', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -206,8 +206,8 @@ function updateVoteOverlay(id) {
         var voteOverlayElement2 = document.querySelector('#option2' + ' .vote-overlay');
 
         if (voteOverlayElement1 && voteOverlayElement2) {
-          voteOverlayElement1.textContent = 'Votes:' + item.votes1 + '%';
-          voteOverlayElement2.textContent = 'Votes:' + item.votes2 + '%';
+          voteOverlayElement1.textContent = 'Votes: ' + item.votes1 + '%';
+          voteOverlayElement2.textContent = 'Votes: ' + item.votes2 + '%';
         }
       } else {
         console.error('Item with ID ' + id + ' not found in JSON.');
@@ -227,7 +227,42 @@ function wait(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-wait(10000).then(() => {
+wait(100000).then(() => {
   populateHTMLWithJSON(1);
   updateVoteOverlay(1);
 })
+
+var hoverCounter = 0;
+
+function addHoverEffect(element) {
+  // Add hover effect
+  var element = document.getElementById(element);
+  element.addEventListener('mouseover', function() {
+      var children = this.children;
+      hoverCounter = hoverCounter + 1;
+      for (var i = 0; i < children.length; i++) {
+          if (!children[i].classList.contains('vote-overlay')) {
+              children[i].classList.add('hovered');
+          }
+      }
+  });
+
+  // Remove hover effect
+  element.addEventListener('mouseout', function() {
+      var children = this.children;
+      for (var i = 0; i < children.length; i++) {
+          if (!children[i].classList.contains('vote-overlay')) {
+              children[i].classList.remove('hovered');
+          }
+      }
+  });
+}
+
+// Use the function
+
+addHoverEffect('option1');
+addHoverEffect('option2');
+
+if (hoverCounter >= 10) {
+  PlayAudio("Bruh, choose one already");
+}
