@@ -14,14 +14,17 @@ function playNextAudio() {
   }
 }
 
+function toggleVoteOverlay() {
+  const elements = document.querySelectorAll('.vote-overlay');
+  for (let i = 0; i < elements.length; i++) {
+    elements[i].classList.toggle('hide');
+  }
+}
+
 document.addEventListener("keydown", function (event) {
   // Check if the key pressed was "f"
   if (event.key === "f") {
-    let elements = document.querySelectorAll('.vote-overlay');
-    // Loop over each element
-    for (let i = 0; i < elements.length; i++) {
-      elements[i].classList.toggle('hide');
-    }
+    toggleVoteOverlay();
     // Get the element with id "text2"
     var element = document.getElementById("text2");
     var or_text = document.getElementById("or-text");
@@ -32,7 +35,7 @@ document.addEventListener("keydown", function (event) {
       if (d === 1) {
         element.innerHTML = d;
         d = 2;
-        applyAnimation('image1', 'animate');
+        applyAnimation('image2', 'animate');
 
         applyAnimation('line', 'colorLine');
         or_text.style.fontSize = "x-large";
@@ -49,7 +52,7 @@ document.addEventListener("keydown", function (event) {
       } else if (d === 2) {
         element.innerHTML = d;
         d = 1;
-        removeAnimation('image1', 'animate');
+        removeAnimation('image2', 'animate');
 
         or_text.style.fontSize = "medium";
         or_text.innerHTML = "OR";
@@ -83,31 +86,34 @@ function removeAnimation(itemID, animation) {
 }
 
 function PlayAudio(text) {
-  // Make a POST request to the server running on port 3000 to convert the text to speech
-  fetch('http://localhost:3000/text-to-speech', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ text }),
-  })
-    .then((response) => response.blob())
-    .then((blob) => {
-      // Create a Blob URL from the audio data
-      const audioURL = URL.createObjectURL(blob);
-
-      if (audioElement) {
-        // I want you to print the audioURL to a file called Log.txt
-        audioElement.src = audioURL;
-        console.log(audioURL)
-        audioElement.play();
-      } else {
-        console.log('Audio element not found');
-      }
+  return new Promise(function (resolve, reject) {
+    fetch('http://localhost:3000/text-to-speech', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ text }),
     })
-    .catch((error) => {
-      console.error('Error playing audio:', error);
-    });
+      .then((response) => response.blob())
+      .then((blob) => {
+        const audioURL = URL.createObjectURL(blob);
+
+        if (audioElement) {
+          audioElement.src = audioURL;
+          audioElement.play();
+          audioElement.addEventListener("ended", function () {
+            resolve(); // Resolve the promise when audio has finished playing
+          });
+        } else {
+          console.log('Audio element not found');
+          reject('Audio element not found');
+        }
+      })
+      .catch((error) => {
+        console.error('Error playing audio:', error);
+        reject(error);
+      });
+  });
 }
 
 function PlayUtilityAudio(path) {
@@ -143,13 +149,17 @@ function populateHTMLWithJSON() {
       return response.json();
     })
     .then(function (jsonData) {
-      statements = jsonData; // Store the statements in the global variable
       jsonData.forEach(function (item) {
         var imageElement = document.getElementById("image" + item.id);
         var textElement = document.getElementById("text" + item.id);
 
         if (imageElement) {
-          imageElement.src = item.imagePath;
+          if (item.id === 1) {
+            imageElement.src = item.imagePath1;
+          } else if (item.id === 2) {
+            console.log("Reached 2");
+            imageElement.src = item.imagePath2; // Update image path for Option 2
+          }
         }
 
         if (textElement) {
@@ -162,9 +172,8 @@ function populateHTMLWithJSON() {
     });
 }
 
-
 function updateVoteOverlay() {
-  fetch('statements.json') // Fetch the statements JSON file
+  fetch('statements.json')
     .then(function (response) {
       return response.json();
     })
@@ -183,6 +192,7 @@ function updateVoteOverlay() {
       console.error('Error fetching vote data:', error);
     });
 }
+
 
 // Call the function to populate the HTML with JSON data
 populateHTMLWithJSON();
