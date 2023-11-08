@@ -3,15 +3,15 @@
     "id": 1,
     "imagePath1": "Images/1.jpg",
     "imagePath2": "Images/2.jpg",
-    "statement": "Would you rather die now or live forever?",
+    "statement": "Die now or Live forever",
     "votes1": 60,
     "votes2": 40
   },
   {
-    "id": 1,
-    "imagePath1": "Images/1.jpg",
-    "imagePath2": "Images/2.jpg",
-    "statement": "Would you rather live in a castle or live in the clouds?",
+    "id": 2,
+    "imagePath1": "Images/3.jpg",
+    "imagePath2": "Images/4.jpg",
+    "statement": "Live in a castle or Live in the clouds",
     "votes1": 42,
     "votes2": 58
   },

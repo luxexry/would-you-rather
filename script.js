@@ -12,7 +12,7 @@ console.log(statements);
 function playNextAudio() {
   if (statements.length > 0) {
     var nextStatement = statements.shift(); // Get and remove the first statement from the array
-    PlayAudio(nextStatement.statement);
+    PlayAudio("Would you rather " + nextStatement.statement);
   }
 }
 
@@ -35,7 +35,6 @@ document.addEventListener("keydown", function (event) {
     if (element) {
       // Change the id of the element to the random number
       if (d === 1) {
-        element.innerHTML = d;
         d = 2;
         applyAnimation('image1', 'animate');
 
@@ -52,7 +51,6 @@ document.addEventListener("keydown", function (event) {
           PlayUtilityAudio("clock.mp3");
         });
       } else if (d === 2) {
-        element.innerHTML = d;
         d = 1;
         removeAnimation('image1', 'animate');
 
@@ -156,7 +154,8 @@ function populateHTMLWithJSON(id) {
       if (item) {
         var imageElement1 = document.getElementById("image1");
         var imageElement2 = document.getElementById("image2");
-        var textElement = document.getElementById("text" + item.id);
+        var textElement1 = document.getElementById("text1");
+        var textElement2 = document.getElementById("text2");
 
         if (imageElement1) {
           console.log("FOUND IMAGE 1");
@@ -168,8 +167,23 @@ function populateHTMLWithJSON(id) {
           imageElement2.src = item.imagePath2;
         }
 
-        if (textElement) {
-          textElement.textContent = item.statement;
+        const statement = item.statement;
+        console.log(
+          'Item with ID ' + id + ' found in JSON. Statement: ' + statement);
+        const sentences = statement.split(" or ");
+        for (let i = 0; i < sentences.length; i++) {
+          sentences[i] = sentences[i].trim();
+        }
+          
+        if (sentences.length === 2) {
+          if (textElement1) {
+            console.log("FOUND TEXT 1");
+            textElement1.textContent = sentences[0];
+          }
+          if (textElement2) {
+            console.log("FOUND TEXT 2");
+            textElement2.textContent = sentences[1];
+          }
         }
       } else {
         console.error('Item with ID ' + id + ' not found in JSON.');
@@ -188,12 +202,12 @@ function updateVoteOverlay(id) {
     .then(function (statementsData) {
       const item = statementsData.find(item => item.id === id);
       if (item) {
-        var voteOverlayElement1 = document.querySelector('#option' + item.id + ' .vote-overlay');
-        var voteOverlayElement2 = document.querySelector('#option' + item.id + ' .vote-overlay');
+        var voteOverlayElement1 = document.querySelector('#option1' + ' .vote-overlay');
+        var voteOverlayElement2 = document.querySelector('#option2' + ' .vote-overlay');
 
         if (voteOverlayElement1 && voteOverlayElement2) {
-          voteOverlayElement1.textContent = 'Votes Option 1: ' + item.votes1 + '%';
-          voteOverlayElement2.textContent = 'Votes Option 2: ' + item.votes2 + '%';
+          voteOverlayElement1.textContent = 'Votes:' + item.votes1 + '%';
+          voteOverlayElement2.textContent = 'Votes:' + item.votes2 + '%';
         }
       } else {
         console.error('Item with ID ' + id + ' not found in JSON.');
@@ -204,5 +218,6 @@ function updateVoteOverlay(id) {
     });
 }
 // Call the function to populate the HTML with JSON data
-populateHTMLWithJSON(1);
-updateVoteOverlay(1);
+var id = 2;
+populateHTMLWithJSON(id);
+updateVoteOverlay(id);
