@@ -215,7 +215,7 @@ function updateVoteOverlay(id) {
     });
 }
 // Call the function to populate the HTML with JSON data
-var id = 1;
+var id = 2;
 populateHTMLWithJSON(id);
 updateVoteOverlay(id);
 
@@ -230,6 +230,19 @@ var el;
 
 function addHoverEffect(elementId) {
   var element = document.getElementById(elementId);
+
+  element.addEventListener('click', function () {
+    if (id === 1) {
+      id = 2;
+      populateHTMLWithJSON(id);
+      updateVoteOverlay(id);
+    }
+    if (id === 2) {
+      id = 1;
+      populateHTMLWithJSON(id);
+      updateVoteOverlay(id);
+    }
+  });
   
   element.addEventListener('mouseover', function () {
     var children = this.children;

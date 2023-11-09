@@ -3,6 +3,7 @@
     "id": 1,
     "imagePath1": "/Images/1.jpg",
     "imagePath2": "/Images/2.jpg",
+    "specialStatement": "Or option 1?",
     "statement": "Drive a luxurious car or Wear a luxurious watch",
     "votes1": 60,
     "votes2": 40
@@ -14,10 +15,6 @@
     "statement": "Live in a castle or Live in the clouds",
     "votes1": 42,
     "votes2": 58
-  },
-  {
-    "id": 3,
-    "statement": "Or option 3?"
   }
 ]
   
