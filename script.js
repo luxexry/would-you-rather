@@ -262,20 +262,12 @@ addHoverEffect('option2');
 function HoveringALotEffect() {
   var audio = document.getElementById('audioElement');
   // Check if hoverCounter is greater than or equal to 10
-  if (audio.paused) {
-    if (hoverCounter >= 10) {
-      PlayAudio("Bruh, choose one already");
-      console.log("Playing audio");
-      hoverCounter = 0;
-    }
-  }
 
-  if (audio.src.includes("clock.mp3")) {
-    console.log("Audio is playing");
-    if (hoverCounter >= 10) {
+  if (hoverCounter >= 10) {
+    if (audio.paused || audio.src.includes("clock.mp3")) {
       PlayAudio("Bruh, choose one already");
-      console.log("Playing audio");
       hoverCounter = 0;
+      wait(2000);
     }
   }
 }
