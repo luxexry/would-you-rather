@@ -1,12 +1,9 @@
-// Attach an event listener to the document
 var d = 1;
 var x = 0;
 var i = 0;
 var audioElement = document.getElementById("audioElement");
 
 var statements = []; // Store the statements from the JSON file
-
-console.log(statements);
 
 // Function to play the next audio in the queue
 function playNextAudio() {
@@ -227,52 +224,77 @@ function wait(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-var hoverCounter = 0;
+var hoverCounter = 0; // Initialize hoverCounter
+var hovered = false;
+var el;
 
-function addHoverEffect(element) {
-  // Add hover effect
-  var element = document.getElementById(element);
-  element.addEventListener('mouseover', function() {
-      var children = this.children;
-      for (var i = 0; i < children.length; i++) {
-          if (!children[i].classList.contains('vote-overlay')) {
-              children[i].classList.add('hovered');
-          }
+function addHoverEffect(elementId) {
+  var element = document.getElementById(elementId);
+  
+  element.addEventListener('mouseover', function () {
+    var children = this.children;
+    for (var i = 0; i < children.length; i++) {
+      if (!children[i].classList.contains('vote-overlay')) {
+        children[i].classList.add('hovered');
+        el = element;
       }
+    }
   });
 
-  // Remove hover effect
-  element.addEventListener('mouseout', function() {
-      var children = this.children;
-      hoverCounter = hoverCounter + 1;
-      console.log(hoverCounter);
-      for (var i = 0; i < children.length; i++) {
-          if (!children[i].classList.contains('vote-overlay')) {
-              children[i].classList.remove('hovered');
-          }
+  element.addEventListener('mouseout', function () {
+    var children = this.children;
+    for (var i = 0; i < children.length; i++) {
+      if (!children[i].classList.contains('vote-overlay')) {
+        children[i].classList.remove('hovered');
       }
+    }
   });
 }
+
+function isHovered(element) {
+  var children = element.children;
+  for (var i = 0; i < children.length; i++) {
+    if (!children[i].classList.contains('vote-overlay')) {
+      if (children[i].classList.contains('hovered') && el === element) {
+        console.log(children[i].classList.contains('hovered'));
+        hovered = true;
+        el = null;
+        return hovered;
+      }
+    }
+  }
+}
+
+setInterval(function () {
+  if (isHovered(document.getElementById('option1'))) {
+    hoverCounter++;
+    hovered = false;
+  } else if (isHovered(document.getElementById('option2'))) {
+    hoverCounter++;
+    hovered = false;
+  }
+  console.log(hoverCounter);
+}, 1000);
 
 // Use the function
 
 addHoverEffect('option1');
 addHoverEffect('option2');
 
-function HoveringALotEffect() {
-  var audio = document.getElementById('audioElement');
-  // Check if hoverCounter is greater than or equal to 10
+// function HoveringALotEffect() {
+//   var audio = document.getElementById('audioElement');
+//   // Check if hoverCounter is greater than or equal to 10
 
-  if (hoverCounter >= 10) {
-    if (audio.paused || audio.src.includes("clock.mp3")) {
-      PlayAudio("Bruh, choose one already");
-      hoverCounter = 0;
-      wait(2000);
-    }
-  }
-}
+//   if (hoverCounter >= 10) {
+//     if (audio.paused || audio.src.includes("clock.mp3")) {
+//       PlayAudio("Bruh, choose one already");
+//       hoverCounter = 0;
+//       wait(2000);
+//     }
+//   }
+// }
 
 // If no audio is playing, call the HoveringALotEffect function
 // Check if no audio is playing
 
-setInterval(HoveringALotEffect, 2000);
+//setInterval(HoveringALotEffect, 2000);
