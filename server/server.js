@@ -13,7 +13,7 @@ console.log("LOLz");
 
 app.post('/text-to-speech', async (req, res) => {
   try {
-    const apiKey = "091352c1b6af8f78ef5671bd173cae93";
+    const apiKey = "3739ad4291cbfcb955cf44853767adb8";
     const voiceID = "pNInz6obpgDQGcFmaJgB";
     const fileName = "AI.mp3"; // Set the filename
     const targetDirectory = path.join(__dirname, '..'); // Go up one level to the 'Wouldyourather' folder

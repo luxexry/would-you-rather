@@ -218,7 +218,7 @@ function updateVoteOverlay(id) {
     });
 }
 // Call the function to populate the HTML with JSON data
-var id = 2;
+var id = 1;
 populateHTMLWithJSON(id);
 updateVoteOverlay(id);
 
@@ -226,11 +226,6 @@ updateVoteOverlay(id);
 function wait(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
-
-wait(100000).then(() => {
-  populateHTMLWithJSON(1);
-  updateVoteOverlay(1);
-})
 
 var hoverCounter = 0;
 
@@ -265,8 +260,18 @@ addHoverEffect('option1');
 addHoverEffect('option2');
 
 function HoveringALotEffect() {
+  var audio = document.getElementById('audioElement');
   // Check if hoverCounter is greater than or equal to 10
-  if (document.getElementById('audioElement').paused) {
+  if (audio.paused) {
+    if (hoverCounter >= 10) {
+      PlayAudio("Bruh, choose one already");
+      console.log("Playing audio");
+      hoverCounter = 0;
+    }
+  }
+
+  if (audio.src.includes("clock.mp3")) {
+    console.log("Audio is playing");
     if (hoverCounter >= 10) {
       PlayAudio("Bruh, choose one already");
       console.log("Playing audio");
@@ -278,4 +283,4 @@ function HoveringALotEffect() {
 // If no audio is playing, call the HoveringALotEffect function
 // Check if no audio is playing
 
-setInterval(HoveringALotEffect, 1000);
+setInterval(HoveringALotEffect, 2000);
