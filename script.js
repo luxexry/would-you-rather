@@ -87,7 +87,7 @@ function removeAnimation(itemID, animation) {
 
 function PlayAudio(text) {
   return new Promise(function (resolve, reject) {
-    fetch('https://3000-luxexry-wouldyourather-bl4k4bu9chz.ws-us106.gitpod.io/text-to-speech', {
+    fetch('http://localhost:3000/text-to-speech', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -239,7 +239,6 @@ function addHoverEffect(element) {
   var element = document.getElementById(element);
   element.addEventListener('mouseover', function() {
       var children = this.children;
-      hoverCounter = hoverCounter + 1;
       for (var i = 0; i < children.length; i++) {
           if (!children[i].classList.contains('vote-overlay')) {
               children[i].classList.add('hovered');
@@ -250,6 +249,8 @@ function addHoverEffect(element) {
   // Remove hover effect
   element.addEventListener('mouseout', function() {
       var children = this.children;
+      hoverCounter = hoverCounter + 1;
+      console.log(hoverCounter);
       for (var i = 0; i < children.length; i++) {
           if (!children[i].classList.contains('vote-overlay')) {
               children[i].classList.remove('hovered');
@@ -263,6 +264,18 @@ function addHoverEffect(element) {
 addHoverEffect('option1');
 addHoverEffect('option2');
 
-if (hoverCounter >= 10) {
-  PlayAudio("Bruh, choose one already");
+function HoveringALotEffect() {
+  // Check if hoverCounter is greater than or equal to 10
+  if (document.getElementById('audioElement').paused) {
+    if (hoverCounter >= 10) {
+      PlayAudio("Bruh, choose one already");
+      console.log("Playing audio");
+      hoverCounter = 0;
+    }
+  }
 }
+
+// If no audio is playing, call the HoveringALotEffect function
+// Check if no audio is playing
+
+setInterval(HoveringALotEffect, 1000);
