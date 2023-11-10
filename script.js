@@ -236,8 +236,7 @@ function addHoverEffect(elementId) {
       id = 2;
       populateHTMLWithJSON(id);
       updateVoteOverlay(id);
-    }
-    if (id === 2) {
+    } else if (id === 2) {
       id = 1;
       populateHTMLWithJSON(id);
       updateVoteOverlay(id);
