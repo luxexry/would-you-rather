@@ -225,8 +225,9 @@ function wait(ms) {
 }
 
 var hoverCounter = 0; // Initialize hoverCounter
-var hovered = false;
 var el;
+var oldEl;
+var AlreadyHovered = true;
 
 function addHoverEffect(elementId) {
   var element = document.getElementById(elementId);
@@ -248,13 +249,15 @@ function addHoverEffect(elementId) {
     for (var i = 0; i < children.length; i++) {
       if (!children[i].classList.contains('vote-overlay')) {
         children[i].classList.add('hovered');
-        el = element;
+        el = element; option2
       }
     }
   });
 
   element.addEventListener('mouseout', function () {
     var children = this.children;
+    AlreadyHovered = haveRelationship(oldEl, el);
+    oldEl = el; option1
     for (var i = 0; i < children.length; i++) {
       if (!children[i].classList.contains('vote-overlay')) {
         children[i].classList.remove('hovered');
@@ -263,15 +266,49 @@ function addHoverEffect(elementId) {
   });
 }
 
+
+function haveRelationship(oldElement, newElement) {
+  const gameContainer = document.getElementById('game-container');
+
+  if (!oldElement || !newElement) {
+      console.log("One or both elements are undefined.");
+      return false;
+  }
+
+  if (oldElement === newElement) {
+      console.log("Elements are the same");
+      return true; // Same element
+  }
+
+  if (oldElement.parentElement === gameContainer || newElement.parentElement === gameContainer) {
+      console.log("game-container is involved");
+      return false; // Disregard game-container
+  }
+
+  if (oldElement.contains && oldElement.contains(newElement)) {
+      console.log("newElement is a child of oldElement");
+      return true;
+  }
+
+  if (
+      oldElement.parentElement &&
+      newElement.parentElement &&
+      oldElement.parentElement === newElement.parentElement
+  ) {
+      return false;
+  }
+
+  console.log("No relationship found");
+  return false;
+}
+
 function isHovered(element) {
   var children = element.children;
   for (var i = 0; i < children.length; i++) {
     if (!children[i].classList.contains('vote-overlay')) {
-      if (children[i].classList.contains('hovered') && el === element) {
-        console.log(children[i].classList.contains('hovered'));
-        hovered = true;
-        el = null;
-        return hovered;
+      if (children[i].classList.contains('hovered') && AlreadyHovered === false) {
+        
+        return true;
       }
     }
   }
@@ -280,10 +317,8 @@ function isHovered(element) {
 setInterval(function () {
   if (isHovered(document.getElementById('option1'))) {
     hoverCounter++;
-    hovered = false;
   } else if (isHovered(document.getElementById('option2'))) {
     hoverCounter++;
-    hovered = false;
   }
   console.log(hoverCounter);
 }, 1000);
@@ -293,20 +328,21 @@ setInterval(function () {
 addHoverEffect('option1');
 addHoverEffect('option2');
 
-// function HoveringALotEffect() {
-//   var audio = document.getElementById('audioElement');
-//   // Check if hoverCounter is greater than or equal to 10
+function HoveringALotEffect() {
+  var audio = document.getElementById('audioElement');
+  // Check if hoverCounter is greater than or equal to 10
 
-//   if (hoverCounter >= 10) {
-//     if (audio.paused || audio.src.includes("clock.mp3")) {
-//       PlayAudio("Bruh, choose one already");
-//       hoverCounter = 0;
-//       wait(2000);
-//     }
-//   }
-// }
+  if (hoverCounter >= 10) {
+    if (audio.paused || audio.src.includes("clock.mp3")) {
+      PlayAudio("Bruh, choose one already");
+      hoverCounter = 0;
+      wait(2000);
+    }
+  }
+}
 
-// If no audio is playing, call the HoveringALotEffect function
-// Check if no audio is playing
+setInterval(HoveringALotEffect, 2000);
 
-//setInterval(HoveringALotEffect, 2000);
+function randomPick() {
+  
+}
