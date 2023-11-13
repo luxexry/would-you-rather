@@ -295,7 +295,7 @@ function haveRelationship(oldElement, newElement) {
       newElement.parentElement &&
       oldElement.parentElement === newElement.parentElement
   ) {
-      return false;
+      return true;
   }
 
   console.log("No relationship found");
@@ -307,7 +307,7 @@ function isHovered(element) {
   for (var i = 0; i < children.length; i++) {
     if (!children[i].classList.contains('vote-overlay')) {
       if (children[i].classList.contains('hovered') && AlreadyHovered === false) {
-        
+        AlreadyHovered = true;
         return true;
       }
     }
