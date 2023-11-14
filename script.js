@@ -343,6 +343,11 @@ function HoveringALotEffect() {
 
 setInterval(HoveringALotEffect, 2000);
 
-function randomPick() {
-  
+function VideoCompliation() {
+  document.addEventListener("keydown", function (event) {
+    // Check if the key pressed was "f"
+    if (event.key === "f") {
+      
+    }
+  });
 }
