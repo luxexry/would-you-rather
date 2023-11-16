@@ -26,6 +26,7 @@ function VideoCompliation() {
     if (event.key === "d") {
       toggleVoteOverlay();
       // Check if the element exists
+
       if (element) {
         // Change the id of the element to the random number
         if (d === 1) {
@@ -42,6 +43,7 @@ function VideoCompliation() {
           audioElement.addEventListener("ended", function () {
             // When the text-to-speech audio has finished playing, play the clock audio
             PlayUtilityAudio("clock.mp3");
+            wait(2000);
           });
         } else if (d === 2) {
           d = 1;
