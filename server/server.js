@@ -11,6 +11,13 @@ app.use(cors());
 
 console.log("LOLz");
 
+// YT VID
+// To watch https://www.youtube.com/watch?v=l3TLQuwr4G0
+// ^^^^^^^^^^^^^^^^
+// ^^^^^^^^^^^^^^^^
+// ^^^^^^^^^^^^^^^^
+// ^^^^^^^^^^^^^^^^
+
 app.post('/text-to-speech', async (req, res) => {
   try {
     const apiKey = "3739ad4291cbfcb955cf44853767adb8";

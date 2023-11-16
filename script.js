@@ -215,7 +215,7 @@ function updateVoteOverlay(id) {
     });
 }
 // Call the function to populate the HTML with JSON data
-var id = 2;
+var id = 1;
 populateHTMLWithJSON(id);
 updateVoteOverlay(id);
 
@@ -233,15 +233,12 @@ function addHoverEffect(elementId) {
   var element = document.getElementById(elementId);
 
   element.addEventListener('click', function () {
-    if (id === 1) {
-      id = 2;
-      populateHTMLWithJSON(id);
-      updateVoteOverlay(id);
-    } else if (id === 2) {
-      id = 1;
-      populateHTMLWithJSON(id);
-      updateVoteOverlay(id);
-    }
+    // Perform actions using the current id
+    populateHTMLWithJSON(id);
+    updateVoteOverlay(id);
+
+    // Increment id and use modulo to cycle back to 1 if needed
+    id = (id % statements.length) + 1;
   });
   
   element.addEventListener('mouseover', function () {
@@ -347,7 +344,7 @@ function VideoCompliation() {
   document.addEventListener("keydown", function (event) {
     // Check if the key pressed was "f"
     if (event.key === "f") {
-      
+
     }
   });
 }

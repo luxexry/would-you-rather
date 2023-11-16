@@ -15,6 +15,14 @@
     "statement": "Live in a castle or Live in the clouds",
     "votes1": 42,
     "votes2": 58
+  },
+  {
+    "id": 3,
+    "imagePath1": "/Images/5.jpg",
+    "imagePath2": "/Images/6.jpg",
+    "statement": "Be invisible (monkeys) or Fly",
+    "votes1": 69,
+    "votes2": 31
   }
 ]
   
