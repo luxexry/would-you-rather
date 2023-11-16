@@ -20,6 +20,18 @@ function toggleVoteOverlay() {
   }
 }
 
+function VideoCompliation() {
+  document.addEventListener("keydown", function (event) {
+    // Check if the key pressed was "f"
+    if (event.key === "d") {
+      toggleVoteOverlay();
+
+    }
+  });
+}
+
+VideoCompliation();
+
 document.addEventListener("keydown", function (event) {
   // Check if the key pressed was "f"
   if (event.key === "f") {
@@ -35,7 +47,6 @@ document.addEventListener("keydown", function (event) {
         d = 2;
         applyAnimation('image1', 'animate');
 
-        applyAnimation('line', 'colorLine');
         or_text.style.fontSize = "x-large";
         or_text.innerHTML = "⌛";
         applyAnimation('or-text', 'rotatetheOR');
@@ -239,6 +250,7 @@ function addHoverEffect(elementId) {
 
     // Increment id and use modulo to cycle back to 1 if needed
     id = (id % statements.length) + 1;
+    console.log("ID: " + id);
   });
   
   element.addEventListener('mouseover', function () {
@@ -340,11 +352,4 @@ function HoveringALotEffect() {
 
 setInterval(HoveringALotEffect, 2000);
 
-function VideoCompliation() {
-  document.addEventListener("keydown", function (event) {
-    // Check if the key pressed was "f"
-    if (event.key === "f") {
 
-    }
-  });
-}
