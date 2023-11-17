@@ -5,6 +5,10 @@ var audioElement = document.getElementById("audioElement");
 
 var statements = []; // Store the statements from the JSON file
 
+document.addEventListener('DOMContentLoaded', toggleVoteOverlay());
+
+var hiddenTogleVideo = true;
+
 // Function to play the next audio in the queue
 function playNextAudio() {
   if (statements.length > 0) {
@@ -272,18 +276,34 @@ var hoverCounter = 0; // Initialize hoverCounter
 var el;
 var oldEl;
 var AlreadyHovered = true;
+var clicks = 0;
+var hiddenTogle = true;
 
 function addHoverEffect(elementId) {
   var element = document.getElementById(elementId);
 
   element.addEventListener('click', function () {
     // Perform actions using the current id
-    populateHTMLWithJSON(id);
-    updateVoteOverlay(id);
+    if (clicks === 0)
+    {
+      if(hiddenTogle)
+      {
+        toggleVoteOverlay();
+        hiddenTogle = false;
+      } else {
+        toggleVoteOverlay();
+        hiddenTogle = true;
+      }
+      clicks++;
+    } else if (clicks === 1) {
+      populateHTMLWithJSON(id);
+      updateVoteOverlay(id);
 
-    // Increment id and use modulo to cycle back to 1 if needed
-    id = (id % statements.length) + 1;
-    console.log("ID: " + id);
+      // Increment id and use modulo to cycle back to 1 if needed
+      id = (id % statements.length) + 1;
+      console.log("ID: " + id);
+      clicks--;
+    }
   });
   
   element.addEventListener('mouseover', function () {
@@ -299,7 +319,7 @@ function addHoverEffect(elementId) {
   element.addEventListener('mouseout', function () {
     var children = this.children;
     AlreadyHovered = haveRelationship(oldEl, el);
-    oldEl = el; option1
+    oldEl = el;
     for (var i = 0; i < children.length; i++) {
       if (!children[i].classList.contains('vote-overlay')) {
         children[i].classList.remove('hovered');
@@ -362,7 +382,6 @@ setInterval(function () {
   } else if (isHovered(document.getElementById('option2'))) {
     hoverCounter++;
   }
-  console.log(hoverCounter);
 }, 1000);
 
 // Use the function
