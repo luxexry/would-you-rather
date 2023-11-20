@@ -1,6 +1,8 @@
 var d = 1;
 var x = 0;
 var i = 0;
+var id = 1;
+var newID = 1;
 var audioElement = document.getElementById("audioElement");
 
 var statements = []; // Store the statements from the JSON file
@@ -23,45 +25,6 @@ function toggleVoteOverlay() {
 document.addEventListener("keydown", function (event) {
   // Check if the key pressed was "f"
   if (event.key === "d") {
-    toggleVoteOverlay();
-    // Check if the element exists
-  if (element) {
-    // Change the id of the element to the random number
-    if (d === 1) {
-      d = 2;
-      applyAnimation('image1', 'animate');
-
-      or_text.style.fontSize = "x-large";
-      or_text.innerHTML = "⌛";
-      applyAnimation('or-text', 'rotatetheOR');
-
-      playNextAudio();
-
-      // Add an "ended" event listener to the text-to-speech audio
-      audioElement.addEventListener("ended", function () {
-        // When the text-to-speech audio has finished playing, play the clock audio
-        PlayUtilityAudio("clock.mp3");
-      });
-    } else if (d === 2) {
-      d = 1;
-      removeAnimation('image1', 'animate');
-
-      or_text.style.fontSize = "medium";
-      or_text.innerHTML = "OR";
-      removeAnimation('line', 'colorLine');
-      removeAnimation('or-text', 'rotatetheOR');
-
-      StopAudio();
-    }
-  } else {
-    console.log('Element with id "option2" does not exist');
-  }
-  }
-});
-
-document.addEventListener("keydown", function (event) {
-  // Check if the key pressed was "f"
-  if (event.key === "f") {
     toggleVoteOverlay();
     // Get the element with id "text2"
     var element = document.getElementById("text2");
@@ -98,6 +61,53 @@ document.addEventListener("keydown", function (event) {
       }
     } else {
       console.log('Element with id "option2" does not exist');
+    }
+  }
+});
+
+document.addEventListener("keydown", function (event) {
+  // Check if the key pressed was "f"
+  if (event.key === "f") {
+    toggleVoteOverlay();
+    // Get the element with id "text2"
+    var element = document.getElementById("text2");
+    var or_text = document.getElementById("or-text");
+
+    // Check if the element exists
+    while (element) {
+      console.log("insie while");
+      // Change the id of the element to the random number
+      if (d === 1) {
+        d = 2;
+        applyAnimation('image1', 'animate');
+
+        or_text.style.fontSize = "x-large";
+        or_text.innerHTML = "⌛";
+        applyAnimation('or-text', 'rotatetheOR');
+
+        playNextAudio();
+
+        // Add an "ended" event listener to the text-to-speech audio
+        audioElement.addEventListener("ended", function () {
+          // When the text-to-speech audio has finished playing, play the clock audio
+          PlayUtilityAudio("clock.mp3");
+          wait(5000);
+        });
+        newID++;
+        populateHTMLWithJSON(id);
+        d = 2;
+      } else if (d === 2) {
+        d = 1;
+        removeAnimation('image1', 'animate');
+
+        or_text.style.fontSize = "medium";
+        or_text.innerHTML = "OR";
+        removeAnimation('line', 'colorLine');
+        removeAnimation('or-text', 'rotatetheOR');
+
+        StopAudio();
+      }
+      break;
     }
   }
 });
@@ -253,7 +263,6 @@ function updateVoteOverlay(id) {
     });
 }
 // Call the function to populate the HTML with JSON data
-var id = 1;
 populateHTMLWithJSON(id);
 updateVoteOverlay(id);
 
