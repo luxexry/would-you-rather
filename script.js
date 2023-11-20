@@ -1,15 +1,9 @@
 var d = 1;
-var VideoState = 1;
 var x = 0;
 var i = 0;
-var VideoIDState = 1;
 var audioElement = document.getElementById("audioElement");
 
 var statements = []; // Store the statements from the JSON file
-
-document.addEventListener('DOMContentLoaded', toggleVoteOverlay());
-
-var hiddenTogleVideo = true;
 
 // Function to play the next audio in the queue
 function playNextAudio() {
@@ -17,11 +11,6 @@ function playNextAudio() {
     var nextStatement = statements.shift(); // Get and remove the first statement from the array
     PlayAudio("Would you rather " + nextStatement.statement);
   }
-}
-
-function playByID(id) {
-  var nextStatement = statements[VideoIDState];
-  PlayAudio("Would you rather " + nextStatement.statement);
 }
 
 function toggleVoteOverlay() {
@@ -37,55 +26,37 @@ function VideoCompliation() {
     if (event.key === "d") {
       toggleVoteOverlay();
       // Check if the element exists
-      var option1 = document.getElementById("option1");
-      var option2 = document.getElementById("option2");
-      var or_text = document.getElementById("or-text");
-      
-      setInterval(function () {
-        if (option1 && option2) {
-          // Change the id of the element to the random number
-          if (VideoState === 1) {
-            VideoState = 2;
-            applyAnimation('image1', 'animate');
-            applyAnimation('image2', 'animate');
-  
-            or_text.style.fontSize = "x-large";
-            or_text.innerHTML = "⌛";
-            applyAnimation('or-text', 'rotatetheOR');
-  
-            playByID(VideoIDState);
-  
-            // Add an "ended" event listener to the text-to-speech audio
-            audioElement.addEventListener("ended", function () {
-              // When the text-to-speech audio has finished playing, play the clock audio
-              PlayUtilityAudio("clock.mp3");
-              wait(2000);
-              toggleVoteOverlay();
-            });
-          } else if (VideoState === 2) {
-            VideoState = 1;
-            
-            toggleVoteOverlay();
-            removeAnimation('image1', 'animate');
-            removeAnimation('image2', 'animate');
-  
-            or_text.style.fontSize = "medium";
-            or_text.innerHTML = "OR";
-            removeAnimation('or-text', 'rotatetheOR');
+    if (element) {
+      // Change the id of the element to the random number
+      if (d === 1) {
+        d = 2;
+        applyAnimation('image1', 'animate');
 
-            // Perform actions using the current id
-            populateHTMLWithJSON(VideoIDState);
-            updateVoteOverlay(VideoIDState);
+        or_text.style.fontSize = "x-large";
+        or_text.innerHTML = "⌛";
+        applyAnimation('or-text', 'rotatetheOR');
 
-            // Increment id and use modulo to cycle back to 1 if needed
-            VideoIDState = (VideoIDState % statements.length) + 1;
-  
-            StopAudio();
-          }
-        } else {
-          console.log('Element with id "option2" does not exist');
-        }
-      }, 5000);
+        playNextAudio();
+
+        // Add an "ended" event listener to the text-to-speech audio
+        audioElement.addEventListener("ended", function () {
+          // When the text-to-speech audio has finished playing, play the clock audio
+          PlayUtilityAudio("clock.mp3");
+        });
+      } else if (d === 2) {
+        d = 1;
+        removeAnimation('image1', 'animate');
+
+        or_text.style.fontSize = "medium";
+        or_text.innerHTML = "OR";
+        removeAnimation('line', 'colorLine');
+        removeAnimation('or-text', 'rotatetheOR');
+
+        StopAudio();
+      }
+    } else {
+      console.log('Element with id "option2" does not exist');
+    }
     }
   });
 }
@@ -287,6 +258,8 @@ function updateVoteOverlay(id) {
 }
 // Call the function to populate the HTML with JSON data
 var id = 1;
+populateHTMLWithJSON(id);
+updateVoteOverlay(id);
 
 // wait function
 function wait(ms) {
@@ -297,34 +270,18 @@ var hoverCounter = 0; // Initialize hoverCounter
 var el;
 var oldEl;
 var AlreadyHovered = true;
-var clicks = 0;
-var hiddenTogle = true;
 
 function addHoverEffect(elementId) {
   var element = document.getElementById(elementId);
 
   element.addEventListener('click', function () {
     // Perform actions using the current id
-    if (clicks === 0)
-    {
-      if(hiddenTogle)
-      {
-        toggleVoteOverlay();
-        hiddenTogle = false;
-      } else {
-        toggleVoteOverlay();
-        hiddenTogle = true;
-      }
-      clicks++;
-    } else if (clicks === 1) {
-      populateHTMLWithJSON(id);
-      updateVoteOverlay(id);
+    populateHTMLWithJSON(id);
+    updateVoteOverlay(id);
 
-      // Increment id and use modulo to cycle back to 1 if needed
-      id = (id % statements.length) + 1;
-      console.log("ID: " + id);
-      clicks--;
-    }
+    // Increment id and use modulo to cycle back to 1 if needed
+    id = (id % statements.length) + 1;
+    console.log("ID: " + id);
   });
   
   element.addEventListener('mouseover', function () {
@@ -340,7 +297,7 @@ function addHoverEffect(elementId) {
   element.addEventListener('mouseout', function () {
     var children = this.children;
     AlreadyHovered = haveRelationship(oldEl, el);
-    oldEl = el;
+    oldEl = el; option1
     for (var i = 0; i < children.length; i++) {
       if (!children[i].classList.contains('vote-overlay')) {
         children[i].classList.remove('hovered');
@@ -403,6 +360,7 @@ setInterval(function () {
   } else if (isHovered(document.getElementById('option2'))) {
     hoverCounter++;
   }
+  console.log(hoverCounter);
 }, 1000);
 
 // Use the function
