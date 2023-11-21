@@ -22,8 +22,10 @@ function toggleVoteOverlay() {
   }
 }
 
+
+// Video Game
 document.addEventListener("keydown", function (event) {
-  // Check if the key pressed was "f"
+  // Check if the key pressed was "d"
   if (event.key === "d") {
     toggleVoteOverlay();
     // Get the element with id "text2"
@@ -65,6 +67,7 @@ document.addEventListener("keydown", function (event) {
   }
 });
 
+// Video Compliation
 document.addEventListener("keydown", function (event) {
   // Check if the key pressed was "f"
   if (event.key === "f") {
