@@ -6,6 +6,7 @@ var newID = 1;
 var audioElement = document.getElementById("audioElement");
 
 var statements = []; // Store the statements from the JSON file
+toggleVoteOverlay();
 
 // Function to play the next audio in the queue
 function playNextAudio() {
@@ -15,6 +16,21 @@ function playNextAudio() {
   }
 }
 
+function playAudioById(id) {
+  var statement = findStatementById(id);
+  if (statement) {
+    PlayAudio("Would you rather " + statement.statement);
+  }
+}
+
+function findStatementById(id) {
+  // Assuming statements is an array of objects with an 'id' property
+  return statements.find(function (item) {
+    return item.id === id;
+  });
+}
+
+
 function toggleVoteOverlay() {
   const elements = document.querySelectorAll('.vote-overlay');
   for (let i = 0; i < elements.length; i++) {
@@ -22,98 +38,102 @@ function toggleVoteOverlay() {
   }
 }
 
+var prevID = null; // Initialize prevID to null initially
 
-// Video Game
-document.addEventListener("keydown", function (event) {
-  // Check if the key pressed was "d"
-  if (event.key === "d") {
+function onEnded() {
+  toggleVoteOverlay();
+  console.log("inside removing event listener");
+  playAudioById(newID);
+  console.log("Played new audio");
+}
+
+// EventCode function with a promise
+function EventCode() {
+  var element = document.getElementById("text2");
+  var or_text = document.getElementById("or-text");
+  return new Promise(async (resolve) => {
+    // When the text-to-speech audio has finished playing, play the clock audio
+    PlayUtilityAudio("clock.mp3");
+    or_text.style.fontSize = "x-large";
+    or_text.innerHTML = "⌛";
+    applyAnimation('or-text', 'rotatetheOR');
+    await wait(5000);
+    PlayUtilityAudio("ding.mp3");
+    or_text.style.fontSize = "medium";
+    or_text.innerHTML = "OR";
+    removeAnimation('or-text', 'rotatetheOR');
     toggleVoteOverlay();
-    // Get the element with id "text2"
+    await wait(1000);
+    StopAudio();
+    await wait(3000);
+    newID++;
+    populateHTMLWithJSON(newID);
+    console.log("at the end of EventCode function");
+    resolve(); // Resolve the promise when EventCode is completed
+  });
+}
+
+// Modify PlayVideo to return a promise
+function PlayVideo() {
+  return new Promise(async (resolve) => {
     var element = document.getElementById("text2");
     var or_text = document.getElementById("or-text");
 
-    // Check if the element exists
-    if (element) {
-      // Change the id of the element to the random number
-      if (d === 1) {
-        d = 2;
-        applyAnimation('image1', 'animate');
+    if (d === 1) {
+      d = 2;
+      applyAnimation('image1', 'animate');
+      applyAnimation('image2', 'animate');
+      // or_text.style.fontSize = "x-large";
+      // or_text.innerHTML = "⌛";
+      // applyAnimation('or-text', 'rotatetheOR');
+      playAudioById(newID);
 
-        or_text.style.fontSize = "x-large";
-        or_text.innerHTML = "⌛";
-        applyAnimation('or-text', 'rotatetheOR');
-
-        playNextAudio();
-
-        // Add an "ended" event listener to the text-to-speech audio
-        audioElement.addEventListener("ended", function () {
-          // When the text-to-speech audio has finished playing, play the clock audio
-          PlayUtilityAudio("clock.mp3");
-        });
-      } else if (d === 2) {
-        d = 1;
-        removeAnimation('image1', 'animate');
-
-        or_text.style.fontSize = "medium";
-        or_text.innerHTML = "OR";
-        removeAnimation('line', 'colorLine');
-        removeAnimation('or-text', 'rotatetheOR');
-
-        StopAudio();
-      }
-    } else {
-      console.log('Element with id "option2" does not exist');
+      // Add an "ended" event listener to the text-to-speech audio
+      audioElement.addEventListener("ended", async function() {
+        // Call the EventCode function and wait for it to complete
+        await EventCode();
+        onEnded();
+        resolve(); // Resolve the promise when the audio playback and EventCode are completed
+      });
+    } else if (d === 2) {
+      d = 1;
+      removeAnimation('image1', 'animate');
+      removeAnimation('image2', 'animate');
+      or_text.style.fontSize = "medium";
+      or_text.innerHTML = "OR";
+      removeAnimation('line', 'colorLine');
+      removeAnimation('or-text', 'rotatetheOR');
+      StopAudio();
     }
-  }
-});
+  });
+}
 
-// Video Compliation
-document.addEventListener("keydown", function (event) {
-  // Check if the key pressed was "f"
-  if (event.key === "f") {
-    toggleVoteOverlay();
-    // Get the element with id "text2"
-    var element = document.getElementById("text2");
-    var or_text = document.getElementById("or-text");
-
-    // Check if the element exists
-    while (element) {
-      console.log("insie while");
-      // Change the id of the element to the random number
-      if (d === 1) {
-        d = 2;
-        applyAnimation('image1', 'animate');
-
-        or_text.style.fontSize = "x-large";
-        or_text.innerHTML = "⌛";
-        applyAnimation('or-text', 'rotatetheOR');
-
-        playNextAudio();
-
-        // Add an "ended" event listener to the text-to-speech audio
-        audioElement.addEventListener("ended", function () {
-          // When the text-to-speech audio has finished playing, play the clock audio
-          PlayUtilityAudio("clock.mp3");
-          wait(5000);
-        });
-        newID++;
-        populateHTMLWithJSON(id);
-        d = 2;
-      } else if (d === 2) {
-        d = 1;
-        removeAnimation('image1', 'animate');
-
-        or_text.style.fontSize = "medium";
-        or_text.innerHTML = "OR";
-        removeAnimation('line', 'colorLine');
-        removeAnimation('or-text', 'rotatetheOR');
-
-        StopAudio();
-      }
-      break;
+// Video Compilation
+function playVideoWithListener() {
+  return new Promise(async (resolve, reject) => {
+    try {
+      document.addEventListener("keydown", async function (event) {
+        // Check if the key pressed was "f"
+        if (event.key === "f") {
+          await PlayVideo();
+          resolve(); // Resolve the promise when the video is played and the listener is added
+        }
+      });
+    } catch (error) {
+      reject(error);
     }
-  }
-});
+  });
+}
+
+// Usage
+playVideoWithListener()
+  .then(() => {
+    console.log("Video played, listener added");
+  })
+  .catch((error) => {
+    console.error("Error:", error);
+  });
+
 
 function applyAnimation(itemID, animation) {
   var element = document.getElementById(itemID);
@@ -206,18 +226,18 @@ function populateHTMLWithJSON(id) {
         var textElement2 = document.getElementById("text2");
 
         if (imageElement1) {
-          console.log("FOUND IMAGE 1");
+          //console.log("FOUND IMAGE 1");
           imageElement1.src = item.imagePath1;
         }
 
         if (imageElement2) {
-          console.log("FOUND IMAGE 2");
+          //console.log("FOUND IMAGE 2");
           imageElement2.src = item.imagePath2;
         }
 
         const statement = item.statement;
-        console.log(
-          'Item with ID ' + id + ' found in JSON. Statement: ' + statement);
+        //console.log(
+          //'Item with ID ' + id + ' found in JSON. Statement: ' + statement);
         const sentences = statement.split(" or ");
         for (let i = 0; i < sentences.length; i++) {
           sentences[i] = sentences[i].trim();
@@ -225,16 +245,16 @@ function populateHTMLWithJSON(id) {
           
         if (sentences.length === 2) {
           if (textElement1) {
-            console.log("FOUND TEXT 1");
+            //console.log("FOUND TEXT 1");
             textElement1.textContent = sentences[0];
           }
           if (textElement2) {
-            console.log("FOUND TEXT 2");
+            //console.log("FOUND TEXT 2");
             textElement2.textContent = sentences[1];
           }
         }
       } else {
-        console.error('Item with ID ' + id + ' not found in JSON.');
+       // console.error('Item with ID ' + id + ' not found in JSON.');
       }
     }) 
     .catch(function (error) {
@@ -319,22 +339,22 @@ function haveRelationship(oldElement, newElement) {
   const gameContainer = document.getElementById('game-container');
 
   if (!oldElement || !newElement) {
-      console.log("One or both elements are undefined.");
+      //console.log("One or both elements are undefined.");
       return false;
   }
 
   if (oldElement === newElement) {
-      console.log("Elements are the same");
+      //console.log("Elements are the same");
       return true; // Same element
   }
 
   if (oldElement.parentElement === gameContainer || newElement.parentElement === gameContainer) {
-      console.log("game-container is involved");
+      //console.log("game-container is involved");
       return false; // Disregard game-container
   }
 
   if (oldElement.contains && oldElement.contains(newElement)) {
-      console.log("newElement is a child of oldElement");
+      //console.log("newElement is a child of oldElement");
       return true;
   }
 
@@ -346,7 +366,7 @@ function haveRelationship(oldElement, newElement) {
       return true;
   }
 
-  console.log("No relationship found");
+  //console.log("No relationship found");
   return false;
 }
 
@@ -368,7 +388,7 @@ setInterval(function () {
   } else if (isHovered(document.getElementById('option2'))) {
     hoverCounter++;
   }
-  console.log(hoverCounter);
+  //console.log(hoverCounter);
 }, 1000);
 
 // Use the function
@@ -376,19 +396,21 @@ setInterval(function () {
 addHoverEffect('option1');
 addHoverEffect('option2');
 
-function HoveringALotEffect() {
-  var audio = document.getElementById('audioElement');
-  // Check if hoverCounter is greater than or equal to 10
+// function HoveringALotEffect() {
+//   var audio = document.getElementById('audioElement');
+//   // Check if hoverCounter is greater than or equal to 10
 
-  if (hoverCounter >= 10) {
-    if (audio.paused || audio.src.includes("clock.mp3")) {
-      PlayAudio("Bruh, choose one already");
-      hoverCounter = 0;
-      wait(2000);
-    }
-  }
-}
+//   if (hoverCounter >= 10) {
+//     if (audio.paused || audio.src.includes("clock.mp3")) {
+//       PlayAudio("Bruh, choose one already");
+//       hoverCounter = 0;
+//       wait(2000);
+//     } else {
+//       hoverCounter = 0;
+//     }
+//   }
+// }
 
-setInterval(HoveringALotEffect, 2000);
+// setInterval(HoveringALotEffect, 2000);
 
 

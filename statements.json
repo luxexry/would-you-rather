@@ -4,7 +4,7 @@
     "imagePath1": "/Images/1.jpg",
     "imagePath2": "/Images/2.jpg",
     "specialStatement": "Or option 1?",
-    "statement": "Drive a luxurious car or Wear a luxurious watch",
+    "statement": "Option 1 or Option 2",
     "votes1": 60,
     "votes2": 40
   },
@@ -12,7 +12,7 @@
     "id": 2,
     "imagePath1": "/Images/3.jpg",
     "imagePath2": "/Images/4.jpg",
-    "statement": "Live in a castle or Live in the clouds",
+    "statement": "Option 3 or Option 4",
     "votes1": 42,
     "votes2": 58
   },
@@ -20,7 +20,7 @@
     "id": 3,
     "imagePath1": "/Images/5.jpg",
     "imagePath2": "/Images/6.jpg",
-    "statement": "Be invisible or Fly",
+    "statement": "Option 5 or Option 6",
     "votes1": 69,
     "votes2": 31
   }
