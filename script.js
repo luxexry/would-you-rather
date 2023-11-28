@@ -40,6 +40,8 @@ function toggleVoteOverlay() {
 function onEnded() {
   toggleVoteOverlay();
   console.log("inside removing event listener");
+  applyAnimation('image1', 'animate');
+  applyAnimation('image2', 'animate');
   playAudioById(newID);
   console.log("Played new audio");
 }
@@ -51,6 +53,8 @@ function EventCode() {
   return new Promise(async (resolve) => {
     // When the text-to-speech audio has finished playing, play the clock audio
     PlayUtilityAudio("clock.mp3");
+    removeAnimation('image1', 'animate');
+    removeAnimation('image2', 'animate');
 
     // Change the text
     or_text.style.fontSize = "x-large";

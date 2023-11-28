@@ -109,6 +109,7 @@ button {
 
 /* Ensure the images maintain their aspect ratio and take up 50% of the button's width */
 button img {
+  /* Your existing styles */
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   max-width: 50%;
@@ -116,29 +117,27 @@ button img {
   height: auto;
   width: auto;
   opacity: 1;
-  transform: scale(0.75);
+  /* transform: scale(0.75); */
   transition: opacity 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55), transform 0.3s ease-in-out;
 }
 
-/* Keyframes for the pop and bounce animation */
-@keyframes popBounce {
-  0%,
+/* Add the animation styles */
+.animate {
+  animation: moveRight 2s ease-in-out;
+}
+
+@keyframes moveRight {
+  0% {
+    transform: translateX(-300%);
+  }
   100% {
-      left: -100px;
+    transform: translateX(calc(-300% - 100px));
   }
-  30%,
-  70% {
-      right: 0px;
-  }
-  50% {
-    transform: translateY(-20px);
+  100% {
+    transform: translateX(0);
   }
 }
 
-/* Define a class to apply the animation */
-.animate {
-  animation: popBounce 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
-}
 
 @keyframes rotate45andback {
   0% {
