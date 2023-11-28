@@ -42,6 +42,7 @@ function onEnded() {
   console.log("inside removing event listener");
   applyAnimation('image1', 'animate');
   applyAnimation('image2', 'animate');
+  //PlayUtilityAudio("whoosh.mp3");
   playAudioById(newID);
   console.log("Played new audio");
 }
@@ -90,6 +91,7 @@ function PlayVideo() {
 
     applyAnimation('image1', 'animate');
     applyAnimation('image2', 'animate');
+    //PlayUtilityAudio("whoosh.mp3"); 
     playAudioById(newID);
 
     // Add an "ended" event listener to the text-to-speech audio
