@@ -181,5 +181,4 @@ button img {
   transition: transform 0.3s ease-in-out;
   /* fix the snap back when hovering */
   transition-timing-function: cubic-bezier(0.68, -0.55, 0.27, 1.55);
-
 }

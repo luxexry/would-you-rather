@@ -30,15 +30,12 @@ function findStatementById(id) {
   });
 }
 
-
 function toggleVoteOverlay() {
   const elements = document.querySelectorAll('.vote-overlay');
   for (let i = 0; i < elements.length; i++) {
     elements[i].classList.toggle('hide');
   }
 }
-
-var prevID = null; // Initialize prevID to null initially
 
 function onEnded() {
   toggleVoteOverlay();
@@ -54,18 +51,26 @@ function EventCode() {
   return new Promise(async (resolve) => {
     // When the text-to-speech audio has finished playing, play the clock audio
     PlayUtilityAudio("clock.mp3");
+
+    // Change the text
     or_text.style.fontSize = "x-large";
     or_text.innerHTML = "⌛";
     applyAnimation('or-text', 'rotatetheOR');
     await wait(5000);
+
+    // Change the text again
     PlayUtilityAudio("ding.mp3");
     or_text.style.fontSize = "medium";
     or_text.innerHTML = "OR";
     removeAnimation('or-text', 'rotatetheOR');
+
+    // End Results
     toggleVoteOverlay();
     await wait(1000);
     StopAudio();
     await wait(3000);
+
+    // Update the HTML with the new ID
     newID++;
     populateHTMLWithJSON(newID);
     console.log("at the end of EventCode function");
@@ -79,32 +84,25 @@ function PlayVideo() {
     var element = document.getElementById("text2");
     var or_text = document.getElementById("or-text");
 
-    if (d === 1) {
-      d = 2;
-      applyAnimation('image1', 'animate');
-      applyAnimation('image2', 'animate');
-      // or_text.style.fontSize = "x-large";
-      // or_text.innerHTML = "⌛";
-      // applyAnimation('or-text', 'rotatetheOR');
-      playAudioById(newID);
+    applyAnimation('image1', 'animate');
+    applyAnimation('image2', 'animate');
+    playAudioById(newID);
 
-      // Add an "ended" event listener to the text-to-speech audio
-      audioElement.addEventListener("ended", async function() {
-        // Call the EventCode function and wait for it to complete
-        await EventCode();
-        onEnded();
-        resolve(); // Resolve the promise when the audio playback and EventCode are completed
-      });
-    } else if (d === 2) {
-      d = 1;
-      removeAnimation('image1', 'animate');
-      removeAnimation('image2', 'animate');
-      or_text.style.fontSize = "medium";
-      or_text.innerHTML = "OR";
-      removeAnimation('line', 'colorLine');
-      removeAnimation('or-text', 'rotatetheOR');
-      StopAudio();
-    }
+    // Add an "ended" event listener to the text-to-speech audio
+    audioElement.addEventListener("ended", async function() {
+      // Call the EventCode function and wait for it to complete
+      await EventCode();
+      onEnded();
+      resolve(); // Resolve the promise when the audio playback and EventCode are completed
+    });
+
+    // removeAnimation('image1', 'animate');
+    // removeAnimation('image2', 'animate');
+    // or_text.style.fontSize = "medium";
+    // or_text.innerHTML = "OR";
+    // removeAnimation('line', 'colorLine');
+    // removeAnimation('or-text', 'rotatetheOR');
+    // StopAudio();
   });
 }
 
