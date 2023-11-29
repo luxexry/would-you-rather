@@ -42,12 +42,8 @@ async function onEnded() {
   console.log("inside removing event listener");
   applyAnimation('image1', 'animate');
   applyAnimation('image2', 'animate');
-  // applyAnimation('text1', 'animateText');
-  // applyAnimation('text2', 'animateText');
-
-  await wait(1000);
-  PlayUtilityAudio("whoosh.mp3");
-  await wait(1000);
+  // PlayUtilityAudio("whoosh.mp3");
+  // await wait(1000);
   playAudioById(newID);
   console.log("Played new audio");
 }
@@ -61,8 +57,6 @@ function EventCode() {
     PlayUtilityAudio("clock.mp3");
     removeAnimation('image1', 'animate');
     removeAnimation('image2', 'animate');
-    // removeAnimation('text1', 'animateText');
-    // removeAnimation('text2', 'animateText');
 
     // Change the text
     or_text.style.fontSize = "x-large";
@@ -98,11 +92,8 @@ async function PlayVideo() {
 
     applyAnimation('image1', 'animate');
     applyAnimation('image2', 'animate');
-    // applyAnimation('text1', 'animateText');
-    // applyAnimation('text2', 'animateText');
-    await wait(1000);
-    PlayUtilityAudio("whoosh.mp3");
-    await wait(1000);
+    // PlayUtilityAudio("whoosh.mp3");
+    // await wait(1000);
     playAudioById(newID);
 
     // Add an "ended" event listener to the text-to-speech audio
