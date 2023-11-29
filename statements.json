@@ -4,7 +4,7 @@
     "imagePath1": "/Images/1.jpg",
     "imagePath2": "/Images/2.jpg",
     "specialStatement": "Or option 1?",
-    "statement": "Option 1 or Option 2",
+    "statement": "Drive a Mercedes for a Day or Wear this watch for a Day",
     "votes1": 60,
     "votes2": 40
   },
@@ -12,7 +12,7 @@
     "id": 2,
     "imagePath1": "/Images/3.jpg",
     "imagePath2": "/Images/4.jpg",
-    "statement": "Option 3 or Option 4",
+    "statement": "Get eaten by a lion or Get eaten by a tiger",
     "votes1": 42,
     "votes2": 58
   },
@@ -20,7 +20,7 @@
     "id": 3,
     "imagePath1": "/Images/5.jpg",
     "imagePath2": "/Images/6.jpg",
-    "statement": "Option 5 or Option 6",
+    "statement": "Get your back broken by a lightskin or Get your back broken by a jamaican bombaclat",
     "votes1": 69,
     "votes2": 31
   }

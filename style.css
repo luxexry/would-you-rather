@@ -123,7 +123,11 @@ button img {
 
 /* Add the animation styles */
 .animate {
-  animation: moveRight 2s ease-in-out;
+  animation: moveRight 1s ease-in-out;
+}
+
+.animateText {
+  animation: moveRight 2.5s ease-in-out;
 }
 
 @keyframes moveRight {

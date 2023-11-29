@@ -37,12 +37,17 @@ function toggleVoteOverlay() {
   }
 }
 
-function onEnded() {
+async function onEnded() {
   toggleVoteOverlay();
   console.log("inside removing event listener");
   applyAnimation('image1', 'animate');
   applyAnimation('image2', 'animate');
-  //PlayUtilityAudio("whoosh.mp3");
+  // applyAnimation('text1', 'animateText');
+  // applyAnimation('text2', 'animateText');
+
+  await wait(1000);
+  PlayUtilityAudio("whoosh.mp3");
+  await wait(1000);
   playAudioById(newID);
   console.log("Played new audio");
 }
@@ -56,6 +61,8 @@ function EventCode() {
     PlayUtilityAudio("clock.mp3");
     removeAnimation('image1', 'animate');
     removeAnimation('image2', 'animate');
+    // removeAnimation('text1', 'animateText');
+    // removeAnimation('text2', 'animateText');
 
     // Change the text
     or_text.style.fontSize = "x-large";
@@ -84,14 +91,18 @@ function EventCode() {
 }
 
 // Modify PlayVideo to return a promise
-function PlayVideo() {
+async function PlayVideo() {
   return new Promise(async (resolve) => {
     var element = document.getElementById("text2");
     var or_text = document.getElementById("or-text");
 
     applyAnimation('image1', 'animate');
     applyAnimation('image2', 'animate');
-    //PlayUtilityAudio("whoosh.mp3"); 
+    // applyAnimation('text1', 'animateText');
+    // applyAnimation('text2', 'animateText');
+    await wait(1000);
+    PlayUtilityAudio("whoosh.mp3");
+    await wait(1000);
     playAudioById(newID);
 
     // Add an "ended" event listener to the text-to-speech audio
@@ -119,6 +130,7 @@ function playVideoWithListener() {
       document.addEventListener("keydown", async function (event) {
         // Check if the key pressed was "f"
         if (event.key === "f") {
+          document.body.style.cursor = 'none';
           await PlayVideo();
           resolve(); // Resolve the promise when the video is played and the listener is added
         }
