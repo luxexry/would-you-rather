@@ -160,9 +160,11 @@ function removeAnimation(itemID, animation) {
   }
 }
 
+var url = 'https://3000-luxexry-wouldyourather-bl4k4bu9chz.ws-us106.gitpod.io/text-to-speech';
+
 function PlayAudio(text) {
   return new Promise(function (resolve, reject) {
-    fetch('http://localhost:3000/text-to-speech', {
+    fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -185,6 +187,7 @@ function PlayAudio(text) {
         }
       })
       .catch((error) => {
+        url = 'http://localhost:3000/text-to-speech';
         console.error('Error playing audio:', error);
         reject(error);
       });
