@@ -189,6 +189,7 @@ function PlayAudio(text) {
       })
       .catch((error) => {
         url = 'http://localhost:3000/text-to-speech';
+        PlayAudio(text);
         console.error('Error playing audio:', error);
         reject(error);
       });
