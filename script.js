@@ -42,10 +42,13 @@ async function onEnded() {
   console.log("inside removing event listener");
   applyAnimation('image1', 'animate');
   applyAnimation('image2', 'animate');
-  // PlayUtilityAudio("whoosh.mp3");
-  // await wait(1000);
   playAudioById(newID);
   console.log("Played new audio");
+}
+
+async function WhooshSound () {
+  PlayUtilityAudio("whoosh.mp3");
+  await wait(1000);
 }
 
 // EventCode function with a promise
@@ -92,8 +95,6 @@ async function PlayVideo() {
 
     applyAnimation('image1', 'animate');
     applyAnimation('image2', 'animate');
-    // PlayUtilityAudio("whoosh.mp3");
-    // await wait(1000);
     playAudioById(newID);
 
     // Add an "ended" event listener to the text-to-speech audio
@@ -233,18 +234,14 @@ function populateHTMLWithJSON(id) {
         var textElement2 = document.getElementById("text2");
 
         if (imageElement1) {
-          //console.log("FOUND IMAGE 1");
           imageElement1.src = item.imagePath1;
         }
 
         if (imageElement2) {
-          //console.log("FOUND IMAGE 2");
           imageElement2.src = item.imagePath2;
         }
 
         const statement = item.statement;
-        //console.log(
-          //'Item with ID ' + id + ' found in JSON. Statement: ' + statement);
         const sentences = statement.split(" or ");
         for (let i = 0; i < sentences.length; i++) {
           sentences[i] = sentences[i].trim();
@@ -252,16 +249,12 @@ function populateHTMLWithJSON(id) {
           
         if (sentences.length === 2) {
           if (textElement1) {
-            //console.log("FOUND TEXT 1");
             textElement1.textContent = sentences[0];
           }
           if (textElement2) {
-            //console.log("FOUND TEXT 2");
             textElement2.textContent = sentences[1];
           }
         }
-      } else {
-       // console.error('Item with ID ' + id + ' not found in JSON.');
       }
     }) 
     .catch(function (error) {
