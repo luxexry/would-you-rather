@@ -42,6 +42,9 @@ async function onEnded() {
   console.log("inside removing event listener");
   applyAnimation('image1', 'animate');
   applyAnimation('image2', 'animate');
+  await wait(100);
+  applyAnimation('text1', 'animateText');
+  applyAnimation('text2', 'animateText');
   playAudioById(newID);
   console.log("Played new audio");
 }
@@ -95,6 +98,8 @@ async function PlayVideo() {
 
     applyAnimation('image1', 'animate');
     applyAnimation('image2', 'animate');
+    applyAnimation('text1', 'animateText');
+    applyAnimation('text2', 'animateText');
     playAudioById(newID);
 
     // Add an "ended" event listener to the text-to-speech audio

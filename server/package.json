@@ -3,6 +3,7 @@
     "version": "1.0.0",
     "description": "Text-to-Speech Server",
     "main": "server.js",
+
     "dependencies": {
         "cors": "^2.8.5",
         "elevenlabs-node": "latest",

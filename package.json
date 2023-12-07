@@ -12,6 +12,7 @@
     "vite": "^4.4.5"
   },
   "dependencies": {
-    "elevenlabs-node": "^1.2.0"
+    "elevenlabs-node": "^1.2.0",
+    "playht": "^0.9.6"
   }
 }
