@@ -1,3 +1,15 @@
+@import url(https://db.onlinewebfonts.com/c/5722a8ad075452dab8a90ad1217bf3b8?family=Mensa+W01+Medium);
+
+@font-face {
+  font-family: 'Slate Pro';
+  src: local('Slate Pro Black Condensed'), local('Slate-Pro-Black-Condensed'),
+      url('SlatePro-BlackCondensed.woff2') format('woff2'),
+      url('SlatePro-BlackCondensed.woff') format('woff'),
+      url('SlatePro-BlackCondensed.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+}
+
 /* Reset default styles */
 * {
   margin: 0;
@@ -85,14 +97,20 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100px;
-  height: 100px;
+  width: 300px;
+  height: 300px;
   background-color: black;
   border-radius: 100%;
   
   color: white;
   font-size: 1em;
   z-index: 2;
+}
+
+#or-text {
+  font-size: 99px; /* Adjust the font size as needed */
+  font-family: "Mensa W01 Medium";
+
 }
 
 #line {
@@ -105,6 +123,24 @@ button {
   z-index: 1;
   background: linear-gradient(to top, black, black);
 }
+
+#text1 {
+  font-family: "Slate Pro Black Condensed";
+  position: relative;
+  display: inline-block;
+}
+
+#text1:before {
+  content: attr(data-text);
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  background-color: black;
+  color: white; /* Set text color to make it visible on the black background */
+  padding: 5px; /* Add padding for some space between characters and the border */
+}
+
 
 
 /* Ensure the images maintain their aspect ratio and take up 50% of the button's width */
