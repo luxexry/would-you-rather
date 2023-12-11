@@ -126,11 +126,11 @@ button {
 
 #text1 {
   font-family: "Slate Pro Black Condensed";
-  text-shadow: 
+  /* text-shadow:
     2px 2px 0 black,
    -2px -2px 0 black,
     2px -2px 0 black,
-   -2px 2px 0 black;
+   -2px 2px 0 black; */
   font-size: 80px;
   position: relative;
   display: inline-block;

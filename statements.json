@@ -4,7 +4,7 @@
     "imagePath1": "/Images/1.jpg",
     "imagePath2": "/Images/2.jpg",
     "specialStatement": "Or option 1?",
-    "statement": "Always feel sticky or 2",
+    "statement": "Always feel sticky or Always feel slimy",
     "votes1": 60,
     "votes2": 40
   },
@@ -12,7 +12,7 @@
     "id": 2,
     "imagePath1": "/Images/3.jpg",
     "imagePath2": "/Images/4.jpg",
-    "statement": "3 or 4",
+    "statement": "Have a banana shoved or Have grapes shoved 1 by 1",
     "votes1": 42,
     "votes2": 58
   },
@@ -20,7 +20,7 @@
     "id": 3,
     "imagePath1": "/Images/5.jpg",
     "imagePath2": "/Images/6.jpg",
-    "statement": "5 or 6",
+    "statement": "Tear your ACL or Tear your nipples off",
     "votes1": 69,
     "votes2": 31
   }
