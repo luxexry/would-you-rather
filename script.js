@@ -8,6 +8,28 @@ var audioElement = document.getElementById("audioElement");
 var statements = []; // Store the statements from the JSON file
 toggleVoteOverlay();
 
+function hasAnimation(element, animationName) {
+  const styles = window.getComputedStyle(element);
+  const animations = styles.animationName || styles.webkitAnimationName || '';
+
+  // Split the list of animations into an array
+  const animationArray = animations.split(',').map(name => name.trim());
+
+  // Check if the desired animation name is in the array
+  return animationArray.includes(animationName);
+}
+
+function ConsoleResult(element) {
+  const text1Element = document.getElementById(element);
+  const hasText1Animation = hasAnimation(text1Element, 'animateText');
+
+  if (hasText1Animation) {
+    console.log(element + " element has the animateText animation.");
+  } else {
+    console.log(element + " element has the animateText animation.");
+  }
+}
+
 // Function to play the next audio in the queue
 function playNextAudio() {
   if (statements.length > 0) {
@@ -40,18 +62,19 @@ function toggleVoteOverlay() {
 async function onEnded() {
   toggleVoteOverlay();
   console.log("inside removing event listener");
-  applyAnimation('image1', 'animate');
-  applyAnimation('image2', 'animate');
-  await wait(100);
   applyAnimation('text1', 'animateText');
   applyAnimation('text2', 'animateText');
+  applyAnimation('image1', 'animate');
+  applyAnimation('image2', 'animate');
+  ConsoleResult('text1');
+  ConsoleResult('text2');
   playAudioById(newID);
+  updateVoteOverlay(newID);
   console.log("Played new audio");
 }
 
-async function WhooshSound () {
+function WhooshSound () {
   PlayUtilityAudio("whoosh.mp3");
-  await wait(1000);
 }
 
 // EventCode function with a promise
@@ -63,16 +86,16 @@ function EventCode() {
     PlayUtilityAudio("clock.mp3");
     removeAnimation('image1', 'animate');
     removeAnimation('image2', 'animate');
+    removeAnimation('text1', 'animateText');
+    removeAnimation('text2', 'animateText');
 
     // Change the text
-    or_text.style.fontSize = "x-large";
     or_text.innerHTML = "⌛";
     applyAnimation('or-text', 'rotatetheOR');
     await wait(5000);
 
     // Change the text again
     PlayUtilityAudio("ding.mp3");
-    or_text.style.fontSize = "medium";
     or_text.innerHTML = "OR";
     removeAnimation('or-text', 'rotatetheOR');
 
@@ -109,14 +132,6 @@ async function PlayVideo() {
       onEnded();
       resolve(); // Resolve the promise when the audio playback and EventCode are completed
     });
-
-    // removeAnimation('image1', 'animate');
-    // removeAnimation('image2', 'animate');
-    // or_text.style.fontSize = "medium";
-    // or_text.innerHTML = "OR";
-    // removeAnimation('line', 'colorLine');
-    // removeAnimation('or-text', 'rotatetheOR');
-    // StopAudio();
   });
 }
 
@@ -283,8 +298,18 @@ function updateVoteOverlay(id) {
         var voteOverlayElement2 = document.querySelector('#option2' + ' .vote-overlay');
 
         if (voteOverlayElement1 && voteOverlayElement2) {
-          voteOverlayElement1.textContent = 'Votes: ' + item.votes1 + '%';
-          voteOverlayElement2.textContent = 'Votes: ' + item.votes2 + '%';
+          voteOverlayElement1.textContent = item.votes1 + '%';
+          voteOverlayElement2.textContent = item.votes2 + '%';
+          console.log("upadting votes");
+          if(item.votes1 > item.votes2) {
+            voteOverlayElement1.classList.remove('loser');
+            voteOverlayElement1.classList.add('winner');            
+            voteOverlayElement2.classList.remove('winner');
+          } else {
+            voteOverlayElement2.classList.remove('loser');
+            voteOverlayElement2.classList.add('winner');
+            voteOverlayElement1.classList.remove('winner');
+          }
         }
       } else {
         console.error('Item with ID ' + id + ' not found in JSON.');

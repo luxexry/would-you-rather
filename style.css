@@ -67,10 +67,10 @@ button {
   position: absolute;
   top: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.6);
+  /*background-color: rgba(0, 0, 0, 0.6);*/
   color: white;
   padding: 5px;
-  font-size: 16px;
+  font-size: 80px;
   z-index: 2; /* Ensure it appears on top of the images */
   border-radius: 5px;
   transition: opacity 0.5s ease;
@@ -126,6 +126,12 @@ button {
 
 #text1 {
   font-family: "Slate Pro Black Condensed";
+  text-shadow: 
+    2px 2px 0 black,
+   -2px -2px 0 black,
+    2px -2px 0 black,
+   -2px 2px 0 black;
+  font-size: 80px;
   position: relative;
   display: inline-block;
 }
@@ -141,6 +147,23 @@ button {
   padding: 5px; /* Add padding for some space between characters and the border */
 }
 
+#text2 {
+  font-family: "Slate Pro Black Condensed";
+  font-size: 80px;
+  position: relative;
+  display: inline-block;
+}
+
+#text2:before {
+  content: attr(data-text);
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  background-color: black;
+  color: white; /* Set text color to make it visible on the black background */
+  padding: 5px; /* Add padding for some space between characters and the border */
+}
 
 
 /* Ensure the images maintain their aspect ratio and take up 50% of the button's width */
@@ -163,20 +186,39 @@ button img {
 }
 
 .animateText {
-  animation: moveRight 1.5s ease-in-out;
+  animation: moveRightT 1.5s ease-in-out;
+}
+
+.winner {
+  color: rgb(62, 253, 0);
+}
+
+.loser {
+  color: white;
 }
 
 @keyframes moveRight {
   0% {
     transform: translateX(-300%);
   }
-  100% {
-    transform: translateX(calc(-300% - 100px));
+  50% {
+    transform: translateX(calc(-300% - 50px));
   }
   100% {
     transform: translateX(0);
   }
 }
+
+@keyframes moveRightT {
+  0% {
+    transform: translateX(-2000%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
 
 
 @keyframes rotate45andback {
