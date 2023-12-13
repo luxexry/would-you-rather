@@ -82,10 +82,12 @@ button {
 
 #option1 {
   background-color: rgb(234,53,64);
+  background-color: rgb(217, 1, 0);
 }
 
 #option2 {
   background-color: rgb(84,130,246);
+  background-color: rgb(0, 128, 219);
 }
 
 #or-circle {
@@ -125,6 +127,7 @@ button {
 }
 
 #text1 {
+  word-break: break-all;
   font-family: "Slate Pro Black Condensed";
   /* text-shadow:
     2px 2px 0 black,

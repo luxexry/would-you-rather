@@ -4,7 +4,7 @@
     "imagePath1": "/Images/1.jpg",
     "imagePath2": "/Images/2.jpg",
     "specialStatement": "Or option 1?",
-    "statement": "Always feel sticky or Always feel slimy",
+    "statement": "Have a banana shoved or Have 20 grapes shoved 1 by 1",
     "votes1": 60,
     "votes2": 40
   },
@@ -12,7 +12,7 @@
     "id": 2,
     "imagePath1": "/Images/3.jpg",
     "imagePath2": "/Images/4.jpg",
-    "statement": "Have a banana shoved or Have grapes shoved 1 by 1",
+    "statement": "Fight a lion or Fight a tiger",
     "votes1": 42,
     "votes2": 58
   },
