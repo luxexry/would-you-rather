@@ -1,8 +1,8 @@
 [
   {
     "id": 1,
-    "imagePath1": "/Images/1.jpg",
-    "imagePath2": "/Images/2.jpg",
+    "imagePath1": "/Images/1-bg.jpg",
+    "imagePath2": "/Images/2-bg.jpg",
     "specialStatement": "Or option 1?",
     "statement": "Have a banana shoved or Have 20 grapes shoved 1 by 1",
     "votes1": 60,
@@ -18,8 +18,49 @@
   },
   {
     "id": 3,
-    "imagePath1": "/Images/5.jpg",
-    "imagePath2": "/Images/6.jpg",
+    "imagePath1": "/Images/5-bg.jpg",
+    "imagePath2": "/Images/6-bg.jpg",
+    "statement": "Tear your ACL or Tear your nipples off",
+    "votes1": 31,
+    "votes2": 69
+  },
+  {
+    "id": 4,
+    "imagePath1": "/Images/7-bg.jpg",
+    "imagePath2": "/Images/8-bg.jpg",
+    "statement": "",
+    "votes1": 31,
+    "votes2": 69
+  },
+  {
+    "id": 5,
+    "imagePath1": "/Images/9.jpg",
+    "imagePath2": "/Images/10.jpg",
+    "specialStatement": "Or option 1?",
+    "statement": "",
+    "votes1": 60,
+    "votes2": 40
+  },
+  {
+    "id": 6,
+    "imagePath1": "/Images/11.jpg",
+    "imagePath2": "/Images/12.jpg",
+    "statement": "Fight a lion or Fight a tiger",
+    "votes1": 42,
+    "votes2": 58
+  },
+  {
+    "id": 7,
+    "imagePath1": "/Images/13.jpg",
+    "imagePath2": "/Images/14.jpg",
+    "statement": "Tear your ACL or Tear your nipples off",
+    "votes1": 31,
+    "votes2": 69
+  },
+  {
+    "id": 8,
+    "imagePath1": "/Images/15.jpg",
+    "imagePath2": "/Images/16.jpg",
     "statement": "Tear your ACL or Tear your nipples off",
     "votes1": 31,
     "votes2": 69

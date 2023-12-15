@@ -60,7 +60,6 @@ function toggleVoteOverlay() {
 }
 
 async function onEnded() {
-  toggleVoteOverlay();
   console.log("inside removing event listener");
   applyAnimation('text1', 'animateText');
   applyAnimation('text2', 'animateText');
@@ -92,7 +91,7 @@ function EventCode() {
     // Change the text
     or_text.innerHTML = "⌛";
     applyAnimation('or-text', 'rotatetheOR');
-    await wait(5000);
+    await wait(3000);
 
     // Change the text again
     PlayUtilityAudio("ding.mp3");
@@ -107,6 +106,8 @@ function EventCode() {
 
     // Update the HTML with the new ID
     newID++;
+    toggleVoteOverlay();
+    await wait(400);
     populateHTMLWithJSON(newID);
     console.log("at the end of EventCode function");
     resolve(); // Resolve the promise when EventCode is completed
@@ -152,6 +153,13 @@ function playVideoWithListener() {
     }
   });
 }
+
+document.addEventListener("keydown", async function (event) {
+  // Check if the key pressed was "r"
+  if (event.key === "r") {
+    await processImages();
+  }
+});
 
 // Usage
 playVideoWithListener()
@@ -447,4 +455,71 @@ addHoverEffect('option2');
 
 // setInterval(HoveringALotEffect, 2000);
 
+// Function to check if the image filename contains "-bg"
+function hasBackground(imagePath) {
+  return imagePath.includes('-bg');
+}
 
+// Function to get all image filenames from the "public/Images" folder
+function getImageFilenames() {
+  const imagesFolder = 'public/Images';
+
+  try {
+    const files = fs.readdirSync(imagesFolder);
+    return files.filter(file => file.toLowerCase().endsWith('.jpg') || file.toLowerCase().endsWith('.png'));
+  } catch (error) {
+    console.error('Error reading image filenames:', error);
+    return [];
+  }
+}
+
+// Updated processImages function to automatically pull images from the folder
+async function processImages() {
+  try {
+    const response = await fetch('/image-filenames');
+    console.log(response.body);
+    
+    if (!response.ok) {
+      console.error(`Error fetching image filenames. Status: ${response.status}, ${response.statusText}`);
+      return;
+    }
+
+    const { imageFilenames } = await response.json();
+
+    for (const imageName of imageFilenames) {
+      if (!hasBackground(imageName)) {
+        // Image does not have "-bg," send it to the server
+        await sendImageToServer(imageName);
+      }
+    }
+  } catch (error) {
+    console.error('Error fetching image filenames:', error);
+  }
+}
+
+
+var url2 = 'https://3000-luxexry-wouldyourather-bl4k4bu9chz.ws-us106.gitpod.io/removebg'
+// Function to send image to the /removebg endpoint
+async function sendImageToServer(imageName) {
+  const imageUrl = `public/Images/${imageName}`;
+  const formData = new FormData();
+  formData.append('image', imageUrl);
+
+  try {
+    const response = await fetch(url2, {
+      method: 'POST',
+      body: formData,
+    });
+
+    if (response.ok) {
+      console.log(`Background removed successfully for ${imageName}`);
+    } else {
+      const errorBody = await response.json();
+      console.error(`Error removing background for ${imageName}:`, errorBody);
+    }
+  } catch (error) {
+    console.error(`Error sending image ${imageName} to server:`, error);
+    url = 'http://localhost:3000/removebg';
+    sendImageToServer(imageName);
+  }
+}

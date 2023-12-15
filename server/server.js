@@ -48,6 +48,53 @@ app.post('/text-to-speech', async (req, res) => {
   }
 });
 
+app.get('/image-filenames', (req, res) => {
+  const imagesFolder = path.join(__dirname, 'public', 'Images');
+  console.log(imagesFolder);
+  try {
+    const files = fs.readdirSync(imagesFolder);
+    const imageFilenames = files.filter(file => file.toLowerCase().endsWith('.jpg') || file.toLowerCase().endsWith('.png'));
+    res.json({ imageFilenames });
+  } catch (error) {
+    console.error('Error reading image filenames:', error);
+    res.status(500).json({ error: 'Error reading image filenames' });
+  }
+ });
+ 
+
+
+app.post('/removebg', async (req, res) => {
+  try {
+    const apiKey = '5ab236699cc558a153796397762d8dd0e5bf3df608b221062da2023f9c32b3025c581c3e697f76b70f0d1be50ef88dc7'; // Replace with your Clipdrop API key
+    const apiUrl = 'https://clipdrop-api.co/remove-background/v1';
+    
+    const form = new FormData();
+    form.append('image_file', req.body.image); // Assuming the client sends the image in the request body
+
+    const response = await fetch(apiUrl, {
+      method: 'POST',
+      headers: {
+        'x-api-key': apiKey,
+      },
+      body: form,
+    });
+
+    const contentType = response.headers.get('content-type');
+    if (response.ok) {
+      // Background removed successfully
+      res.set('Content-Type', contentType);
+      res.send(await response.buffer());
+    } else {
+      // Handle API error
+      const errorBody = await response.json();
+      res.status(response.status).json(errorBody);
+    }
+  } catch (error) {
+    console.error('Error removing background:', error);
+    res.status(500).send('Error removing background');
+  }
+});
+
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

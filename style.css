@@ -172,8 +172,7 @@ button img {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   max-width: 50%;
   max-height: 100%;
-  top: 50%;
-  height: calc(100% - 250px);
+  height: calc(100% - 70%);
   width: auto;
   opacity: 1;
   /* transform: scale(0.75); */
