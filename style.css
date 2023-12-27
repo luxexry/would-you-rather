@@ -129,7 +129,7 @@ button {
 #text1 {
   word-break: break-all;
   font-family: "Slate Pro Black Condensed";
-  font-size: 80px;
+  font-size: 78px;
   position: relative;
   display: inline-block;
 }
@@ -217,8 +217,6 @@ button img {
     transform: translateX(0);
   }
 }
-
-
 
 @keyframes rotate45andback {
   0% {
